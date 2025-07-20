@@ -117,12 +117,12 @@ D=D-A
 Estas líneas usan la ALU para restar el valor de A al valor de D, y guarda el resultado en D nuevamente.
 -  ##### *¿Para qué sirve el registro PC?*
 El registro PC es el encargador de guardar la dirección de la siguiente instrucción a ejecutar
--  ##### * ¿Cuál es la diferencia entre @i y @READKEYBOARD?*
+-  ##### *¿Cuál es la diferencia entre @i y @READKEYBOARD?*
 @i es una variable que se creapara guardar la posición en la pantalla
 @READKEYBOARD es un marcador para un lugar en el código
--  ##### * Describe qué se necesita para leer el teclado y mostrar información en la pantalla*
+-  ##### *Describe qué se necesita para leer el teclado y mostrar información en la pantalla*
 Se accede a la dirección KBD. Si el valor es diferente de 0, es porque hay una tecla presionada
--  ##### * Identifica un bucle en el programa y explica su funcionamiento*
+-  ##### *Identifica un bucle en el programa y explica su funcionamiento*
 ```
 (READKEYBOARD)
 ...
@@ -130,7 +130,7 @@ Se accede a la dirección KBD. Si el valor es diferente de 0, es porque hay una 
 0;JMP
 ```
 Gracias a este bucle el programa se repite constantemente, ya que verifica si hay una tecla presionada, y dependiendo del valor crea pixeles y avanza o los borra y va para atrás
--  ##### * Identifica una condición en el programa y explica su funcionamiento*
+-  ##### *Identifica una condición en el programa y explica su funcionamiento*
 ```
 @KBD
 D=M
@@ -196,12 +196,12 @@ D=D-A
 Estas líneas usan la ALU para restar el valor de A al valor de D, y guarda el resultado en D nuevamente
 -  ##### *¿Para qué sirve el registro PC?*
 El registro PC es el encargador de guardar la dirección de la siguiente instrucción a ejecutar
--  ##### * ¿Cuál es la diferencia entre @i y @READKEYBOARD?*
+-  ##### *¿Cuál es la diferencia entre @i y @READKEYBOARD?*
 @i es una variable que se creapara guardar la posición en la pantalla
 @READKEYBOARD es un marcador para un lugar en el código
--  ##### * Describe qué se necesita para leer el teclado y mostrar información en la pantalla*
+-  ##### *Describe qué se necesita para leer el teclado y mostrar información en la pantalla*
 Se accede a la dirección KBD. Si el valor es diferente de 0, es porque hay una tecla presionada
--  ##### * Identifica un bucle en el programa y explica su funcionamiento*
+-  ##### *Identifica un bucle en el programa y explica su funcionamiento*
 ```
 (READKEYBOARD)
 ...
@@ -209,7 +209,7 @@ Se accede a la dirección KBD. Si el valor es diferente de 0, es porque hay una 
 0;JMP
 ```
 Gracias a este bucle el programa se repite constantemente, ya que verifica si hay una tecla presionada, y dependiendo del valor crea pixeles y avanza o los borra y va para atrás
--  ##### * Identifica una condición en el programa y explica su funcionamiento*
+-  ##### *Identifica una condición en el programa y explica su funcionamiento*
 ```
 @KBD
 D=M
