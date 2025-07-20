@@ -4,7 +4,7 @@
 
 ─── ･ ｡ﾟ☆: *.☽ .* :☆｡ﾟ.･ ｡ﾟ☆: *.☽ .* :☆｡ﾟ.･ ｡ﾟ☆: *.☽ .* :☆｡ﾟ.･ ｡ﾟ☆: *.☽ .* :☆｡ﾟ.･ ｡ﾟ☆: *.☽ .* :☆｡ﾟ.･ ｡ﾟ☆: *.☽ .* :☆｡ﾟ.･ ｡ﾟ☆: *.☽ .* :☆｡ﾟ.･ ｡ﾟ☆: *.☽ .* :☆｡ﾟ.･ ｡ﾟ☆: *.☽ .* :☆｡ﾟ.･ ｡ﾟ☆───
 
-### **Actividad 01 ༓☾∘∙•⋅⋅⊰⋅•⋅**
+### **ACTIVIDAD 01 ༓☾∘∙•⋅⋅⊰⋅•⋅**
 ```
 @1
 D=A
@@ -60,7 +60,7 @@ M=D
 -  ##### *¿Qué diferencia hay entre los datos almancenados en la memoria ROM y en la RAM?*
 los datos almacenados en la mamoria RAM son termporales y los de ROM son permanentes.
 
-### **Actividad 02 [Parte 1] ༓☾∘∙•⋅⋅⊰⋅•⋅**
+### **ACTIVIDAD 02 [Parte 1] ༓☾∘∙•⋅⋅⊰⋅•⋅**
 
 #### **Experimento [1]**
 ```
@@ -139,7 +139,7 @@ D;JNE
 ```
 Aquí se pregunta si el valor del teclado es diferente de cero. Si sí hay una tecla presionada, salta a KEYPRESSED... Si no, continúa borrando la pantalla.
 
-### **Actividad 02 [Parte 2] ༓☾∘∙•⋅⋅⊰⋅•⋅**
+### **ACTIVIDAD 02 [Parte 2] ༓☾∘∙•⋅⋅⊰⋅•⋅**
 
 #### **Experimento [1]**
 ```
