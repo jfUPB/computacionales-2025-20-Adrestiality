@@ -9,7 +9,7 @@
 ### [Parte 1]
 
 -  #### Describe con tus palabras las tres fases del ciclo Fetch-Decode-Execute. ¿Qué rol juega el Program Counter (PC) en este ciclo?
- xxx
+Fetch: Busca, Decode:decodifica, Execute:Ejecuta. En otras palabras, ante cada línea de código, el computador busca lo que necesita, decodifica lo que debe hacer y lo ejecuta finalmente.
  
 -  #### ¿Cuál es la diferencia fundamental entre una instrucción-A (que empieza con @) y una instrucción-C (que involucra D, M, A, etc.) en el lenguaje ensamblador de Hack? Da un ejemplo de cada una.
 
@@ -50,3 +50,27 @@ También cuando entendí los números negativos
 No haría algo en si muy diferente. Sino que trataría de implementar mucho más lo de “predecir, ejecutar, observar y reflexionar". me ayuda a entender mucho más.
 
 ### **ACTIVIDAD 06 ༓☾∘∙•⋅⋅⊰⋅•⋅**
+
+ACTIVIDAD 1
+Me gusta que escriba en un lenguaje relativamente formal pero sin perder el mensaje. Es conciso y proporciona varios ejemplos y casos. 
+Tambien tiene una interesante perspectiva respecto a la definición del curso
+
+ACTIVIDAD 2
+
+
+ACTIVIDAD 3
+
+ACTIVIDAD 4
+
+### **ACTIVIDAD 07 ༓☾∘∙•⋅⋅⊰⋅•⋅**
+
+-  #### Continuar: ¿Qué aspecto de las actividades, las explicaciones o la dinámica de la clase te ha resultado más útil o te ha gustado más y debería seguir haciendo?
+Me gustaría que existiese la manera de hacer las clases un poco más llamativas. Quizás asi a las personas no les de tanto sueño y  no se distraigan. 
+Aunque en general me gusta la actividad de interpretar cada linea c
+-  #### Dejar de hacer: ¿Qué aspecto de la unidad te ha resultado confuso, poco útil o frustrante? ¿Hay algo que crees que debería eliminar o cambiar drásticamente?
+
+-  #### Empezar a hacer: ¿Qué te habría gustado que hiciéramos que no hicimos? ¿Tienes alguna idea para una actividad o un recurso que podría mejorar el aprendizaje en la próxima unidad?
+
+-  #### Ritmo y Dificultad: en una escala del 1 (muy fácil/lento) al 5 (muy difícil/rápido), ¿Cómo calificarías el ritmo y la dificultad general de esta unidad? ¿Por qué?
+
+-  #### Comentario Adicional: ¿Hay algo más que te gustaría compartir sobre tu experiencia de aprendizaje en esta unidad?
