@@ -4,29 +4,28 @@
 
 ─── ･ ｡ﾟ☆: *.☽ .* :☆｡ﾟ.･ ｡ﾟ☆: *.☽ .* :☆｡ﾟ.･ ｡ﾟ☆: *.☽ .* :☆｡ﾟ.･ ｡ﾟ☆: *.☽ .* :☆｡ﾟ.･ ｡ﾟ☆: *.☽ .* :☆｡ﾟ.･ ｡ﾟ☆: *.☽ .* :☆｡ﾟ.･ ｡ﾟ☆: *.☽ .* :☆｡ﾟ.･ ｡ﾟ☆: *.☽ .* :☆｡ﾟ.･ ｡ﾟ☆: *.☽ .* :☆｡ﾟ.･ ｡ﾟ☆───
 
-### **ACTIVIDAD 01 ༓☾∘∙•⋅⋅⊰⋅•⋅**
-```
+## **ACTIVIDAD 01 ༓☾∘∙•⋅⋅⊰⋅•⋅**
+```asm
 @SCREEN
 M=1
 ```
 ```c++
 screen = 1;
 ```
-<img width="388" height="38" alt="image" src="https://github.com/user-attachments/assets/40d4efa1-15a2-46c0-b22a-d35c1e588f41" />
+<img width="374" height="34" alt="image" src="https://github.com/user-attachments/assets/efe25a5e-7c18-4855-8e06-337b7aa23766" />
 
-### **BITÁCORA 𖤓 ☆ ☼ ⋆⋅**
--  *predice, ejecuta, observa y reflexiona*
+-  **predice, ejecuta, observa y reflexiona** 𖤓 ☆ ☼ ⋆⋅**
 
-PREDICE: Gracias a la etiqueta SCREEN, el compuatdor debe iniciar la posición de la pantalla, es decir, 16384. Luego asignamos un 1 en uno de los 16 dígitos de la posición 16384
+**[PREDICE]** Gracias a la etiqueta SCREEN, el compuatdor debe iniciar la posición de la pantalla, es decir, 16384. Luego asignamos un 1 en uno de los 16 dígitos de la posición 16384
 
-EJECUTA: En efecto, ttras pasar el código a NAND2tetris, la etiqueta SCREEN se transporma en 16384, luego lo lee y A pasa a dicho valor. Luego M=1 asigna un valor al 16384 de RAM que acabamos de leer y asigna el 1 en el último valor de los 16 ceros que hay
+**[EJECUTA]** En efecto, ttras pasar el código a NAND2tetris, la etiqueta SCREEN se transporma en 16384, luego lo lee y A pasa a dicho valor. Luego M=1 asigna un valor al 16384 de RAM que acabamos de leer y asigna el 1 en el último valor de los 16 ceros que hay
 
-OBSERVA: El código funciona con normalidad. el pixel es super chiquito, pero funciona
+**[OBSERVA]** El código funciona con normalidad. el pixel es super chiquito, pero funciona
 
-REFLEXIONA:
+**[REFLEXIONA]**
 
-### **ACTIVIDAD 02 ༓☾∘∙•⋅⋅⊰⋅•⋅**
-```
+## **ACTIVIDAD 02 ༓☾∘∙•⋅⋅⊰⋅•⋅**
+```asm
 @SCREEN
 M=-1
 ```
@@ -36,18 +35,18 @@ screen = 0xFFF;
 ```
 <img width="358" height="30" alt="image" src="https://github.com/user-attachments/assets/fe1fd9e0-16af-4807-8311-1ef13ec75358" />
 
-### **BITÁCORA 𖤓 ☆ ☼ ⋆⋅**
--  *predice, ejecuta, observa y reflexiona*
-PREDICE: Gracias a la etiqueta SCREEN, el compuatdor debe iniciar la posición de la pantalla, es decir, 16384. Luego asignamos un -1, el cual representa un numero enorme en positivos, y llena las 16 casillas de ese lugar 
+-  **predice, ejecuta, observa y reflexiona** 𖤓 ☆ ☼ ⋆⋅**
 
-EJECUTA: En efecto, ttras pasar el código a NAND2tetris, la etiqueta SCREEN se transporma en 16384, luego lo lee y A pasa a dicho valor. Luego M=-1 asigna un valor al 16384 de RAM que acabamos de leer y llena todas las 16 casillas
+**[PREDICE]** Gracias a la etiqueta SCREEN, el compuatdor debe iniciar la posición de la pantalla, es decir, 16384. Luego asignamos un -1, el cual representa un numero enorme en positivos, y llena las 16 casillas de ese lugar 
 
-OBSERVA: Se ve claramente la linea con los 16 pixeles llenos
+**[EJECUTA]** En efecto, ttras pasar el código a NAND2tetris, la etiqueta SCREEN se transporma en 16384, luego lo lee y A pasa a dicho valor. Luego M=-1 asigna un valor al 16384 de RAM que acabamos de leer y llena todas las 16 casillas
 
-REFLEXIONA: No es necesario llenar todas las 16 casillas una por una. podemos poner un numero grande directamente 
+**[OBSERVA]** Se ve claramente la linea con los 16 pixeles llenos
 
-### ACTIVIDAD 03༓☾∘∙•⋅⋅⊰⋅•⋅**
-```
+**[REFLEXIONA]** No es necesario llenar todas las 16 casillas una por una. podemos poner un numero grande directamente 
+
+## ACTIVIDAD 03༓☾∘∙•⋅⋅⊰⋅•⋅**
+```asm
 @SCREEN
 M=-1
 @CONTADOR
@@ -77,8 +76,6 @@ D;JEQ
 0;JMP
  
  
- 
- 
 (DERECHA)
 @CONTADOR
 D=M
@@ -86,7 +83,6 @@ D=M
 A=D+A
  
 M=0
- 
  
 @CONTADOR
 M=M+1
@@ -139,7 +135,17 @@ CONTADOR = CONTADOR +1;
 
 Memoria[ CONTADOR+SCREEN] = -1;
 ```
-### ACTIVIDAD 03༓☾∘∙•⋅⋅⊰⋅•⋅**
+-  **predice, ejecuta, observa y reflexiona** 𖤓 ☆ ☼ ⋆⋅**
+
+**[PREDICE]** 
+
+**[EJECUTA]** 
+
+**[OBSERVA]** 
+
+**[REFLEXIONA]**
+
+### ACTIVIDAD 04༓☾∘∙•⋅⋅⊰⋅•⋅**
 
 ```c++
 //Adds 1+...+100.
@@ -158,7 +164,7 @@ for(int i = 1; i <=100; i++){
    sum+= i;
 }
 ```
-```
+```asm
 @i
 M=1
 
@@ -187,26 +193,45 @@ M=M+1 // i=i+1
 
 
 ```
-### **BITÁCORA 𖤓 ☆ ☼ ⋆⋅**
--  *Conclusiones*
+**[CONCLUSIONES]** 
+```c++
+int a = 10;
+int* p;
+p = &a;
+*p = 20;
+```
+```c++
+int a = 10;
+int b = 5;
+int *p;
+p = &a;
+b = *p;
+```
 
-### ACTIVIDAD 04༓☾∘∙•⋅⋅⊰⋅•⋅**
+### ACTIVIDAD 05༓☾∘∙•⋅⋅⊰⋅•⋅**
 
--  *¿Cómo se declara un puuntero?*
--  *¿Cómo se define el puntero en C++?
--  *¿Cómo se almacena en C++ la dirección de memoria de una variable? Con el operador &*
--  *¿Cómo se escribe el contenido de la variable a la que apunta un puntero? Con el operador "*"*
+> ¿Cómo se declara un puntero?
+HOLAAA
 
-### **BITÁCORA 𖤓 ☆ ☼ ⋆⋅**
--  *predice, ejecuta, observa y reflexiona*
 
-PREDICE:
+> ¿Cómo se define el puntero en C++?
+4444
 
-EJECUTA:
+> ¿Cómo se almacena en C++ la dirección de memoria de una variable? Con el operador &
+4444
 
-OBSERVA:
+> ¿Cómo se escribe el contenido de la variable a la que apunta un puntero? Con el operador *
+4444
 
-REFLEXIONA:
+-  **predice, ejecuta, observa y reflexiona** 𖤓 ☆ ☼ ⋆⋅**
+
+**[PREDICE]** 
+
+**[EJECUTA]** 
+
+**[OBSERVA]** 
+
+**[REFLEXIONA]**
 
 
 ////
