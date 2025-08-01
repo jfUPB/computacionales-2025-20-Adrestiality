@@ -22,7 +22,7 @@ screen = 1;
 
 **[OBSERVA]** El código funciona con normalidad. el pixel es super chiquito, pero funciona
 
-**[REFLEXIONA]**
+**[REFLEXIONA]** No fue necesario usar un montón de líneas de código. Con solo una línea podíamos llamar a las ubicaciónes de la memoria que coincidían con la pantalla y otras sola líanea de código para rellenarla con un solo valor, 1
 
 ## **ACTIVIDAD 02 ༓☾∘∙•⋅⋅⊰⋅•⋅**
 ```asm
@@ -43,7 +43,7 @@ screen = 0xFFF;
 
 **[OBSERVA]** Se ve claramente la linea con los 16 pixeles llenos
 
-**[REFLEXIONA]** No es necesario llenar todas las 16 casillas una por una. podemos poner un numero grande directamente 
+**[REFLEXIONA]** No es necesario llenar todas las 16 casillas una por una. Podemos poner un numero grande directamente. Recordemos que los números negativos dentro de el lenguaje ensamblador, se interpretan como números positivos demasiado grandes, lo cual cuando tratamos de rellenar los 16 pixeles, podemos poner simplemente esos 16 pixeles con un número enorme como el que representa el -1 
 
 ## ACTIVIDAD 03༓☾∘∙•⋅⋅⊰⋅•⋅**
 ```asm
@@ -130,20 +130,24 @@ else if (tmp == 105){
   //IZQUIERDA
 }
 
-Memoria[ CONTADOR+SCREEN] = 0;
+Memoria[CONTADOR+SCREEN] = 0;
 CONTADOR = CONTADOR +1;
 
-Memoria[ CONTADOR+SCREEN] = -1;
+Memoria[CONTADOR+SCREEN] = -1;
 ```
 -  **predice, ejecuta, observa y reflexiona** 𖤓 ☆ ☼ ⋆⋅**
 
-**[PREDICE]** 
+**[PREDICE]** Ambos códigos deberían poder leer las teclas presionadas y asignarles a la memoria diferentes valores. de modo en que cuando el código deba decidir que línea ejecutar (ya sea el de la derecha o el de la izquierda) solo deba hacer operaciones con los números asignados previamente y relacionarlo con sus condiciones
 
-**[EJECUTA]** 
+**[EJECUTA]** Básicamente en este código ensamblador estamos diciendo que dependiendo del valor de la variable D, se hagan saltos y se ejecute las líneas de código de la derecha e izquierda. Se cumple eso gracias a los saltos condicionales, cuando se presiona la tecla D se asigna un 100 y bajo cierta operación, si da igual a 0 se ejecuta el código de la derecha, mientras que si presionamos la tecla I, el código le asignará un 105 y bajo otra operación, se realizará un salto al código de la izquierda, encargado de seguir coloreando filas de pixeles
 
-**[OBSERVA]** 
+Ya en este código de c++, se crea una variable tmp que supuestamente le permite programar y computar a la par qque el código , encargada de leer las teclas y, asi mismo asignarles 100 a la D y 105 a la I. Con los condicionales if y else if, podemos asegurarnos que si en efecto la lectura de la tecla D es 100 (o si la lectura de la tecla I es 105) se le sume al contador y a la pantalla, o que le reste
 
-**[REFLEXIONA]**
+**[OBSERVA]** En el código ensamblador hack es necesario hacer reiteradas verificaciones y saltos condicionales para que el computador pueda mover y verificar si hay o no una tecla presionada. Cuando empieza, verifica la tecla presionada, si no hay nada presionado, eventualmente en las operaciones no va a concordar nada y debera volver a verificar si hay alguna tecla presionada hasta que pueda asignar algun valor. Ya sea que presionemos la tecla D o I, el computador asignará los respectivos valores y hara operaciones y saltos con ellos, llevándolos a sus respectivas líneas de código para que se pinte la barrita de pixeles en el lugar deseado, luego vuelve y verifica si hay una tecla presionada, si no la hay, pues vuelve al bucle de constantes verificaciones hasta recibir una tecla y poder signar un valor, si en efecto hay algo presionado ejecuta la respectiva linea de código y asi hasta que paremos el código
+
+En el código de c++ podría decirse que es lo mismo, no obstante aquí no es necesario hacer tantas operaciones con los valores asignados a D o I, ya que basta con igualarlos en su respectivo valor, es decir, si en efecto en D hay 100, o si en efecto en I hay 105, pues se pinta una linea en cierto lugar y vuelve al inicio
+
+**[REFLEXIONA]** Aun me cuetsa entender por qué en el código de c++ debemos usar un tmp. De hecho aun no me queda claro que es. Tampoco me queda muy claro como es que su código se reinicia, o se si es solo propiedad de los condicionales como el while o si hay algo más
 
 ### ACTIVIDAD 04༓☾∘∙•⋅⋅⊰⋅•⋅**
 
@@ -193,7 +197,8 @@ M=M+1 // i=i+1
 
 
 ```
-**[CONCLUSIONES]** 
+**[CONCLUSIONES]** Aquí podemos entender que el for y el while son lo mismo, por ende este código en lenguaje ensamblaro también replican lo mismo que los dos códigos de c++
+
 ```c++
 int a = 10;
 int* p;
@@ -209,60 +214,47 @@ b = *p;
 ```
 
 ### ACTIVIDAD 05༓☾∘∙•⋅⋅⊰⋅•⋅**
+> ¿Qué es un puntero?
+Es una variable que busca almacenar la dirección de la memoria de otra variable (o mejor dicho, apuntan a la direccion de cierta variable). Ojo, solo almacena la DIRECCIÓN, no su valor en si como variable 
 
 > ¿Cómo se declara un puntero?
-HOLAAA
+Los punteros se declaran, o se llaman inicialmente con int* p; en c++, 
 
 
 > ¿Cómo se define el puntero en C++?
-4444
+Los punteros se definen como p(no necesariamente se llama p, es el nombre de nuestra variable puntero) = &(variable a apuntar). 
 
-> ¿Cómo se almacena en C++ la dirección de memoria de una variable? Con el operador &
-4444
+> ¿Cómo se almacena en C++ la dirección de memoria de una variable?
+Usamos "&" por que es lo que nos permite almacenar la dirección de memoria en otra variable
 
-> ¿Cómo se escribe el contenido de la variable a la que apunta un puntero? Con el operador *
-4444
+> ¿Cómo se escribe el contenido de la variable a la que apunta un puntero?
+Recordemos que el puntero solo guarda direcciones de las variables, mas no el valor de las variables en si. si quisieramos acceder para hacer uso de la variable a la que el puntero esta apuntando, hacemos uso del *
 
+[Código 1]
+```c++
+int a = 10;
+int b = 5;
+int *p;
+p = &a;
+b = *p;
+```
 -  **predice, ejecuta, observa y reflexiona** 𖤓 ☆ ☼ ⋆⋅**
 
-**[PREDICE]** 
+**[PREDICE]** El código debería poder leer y reemplazar algunos valores entre a y b
 
-**[EJECUTA]** 
+**[EJECUTA]** El código tiene dos variables, a = 10 y b = 5. El puntero se declara y apunta a la variable a guardando su direccion, y luego, gracias al "*", hace que b adquiera mismo valor que a, es decir b = 10
 
-**[OBSERVA]** 
+**[OBSERVA]** Es bastante facil reemplazar las variables
 
-**[REFLEXIONA]**
+**[REFLEXIONA]** Es bastante util el uso del "*" con los punteros porque nos deja acceder constantemente a las variables sin necesidad de llamarlas
 
+>Las siguientes lineas de código son una simulación de este mismo código en lenguaje ensamblador
 
-////
-PUNTERO: 
-  ++++En esa variable se guardan direcciones
-
-Int i;
-  i es una variable 
-  En i se guarda un valor --> un entero 
-  
-int* ptr; ---> Declaro puntero: ptr
-  ptr es una variable que guarda direcciones de otras variables
-  declaro la variable
-
-& definicion de la  variable
-
-se puede leer con el puntero
-int j = ptr;
-
-int j = *ptr; guardamos en j el valor de la variable a la qque estamos apuntando
-
-
-
-
-
-///
+```.asm
 @10
 D=A
 @a
 M=D
-
 
 @a
 D=A
@@ -274,7 +266,20 @@ D=A
 @p
 A=M
 M=D
-///
+```
+[Código 2]
+```c++
+int a = 10;
+int* p;
+p = &a;
+*p = 20;
+```
+-  **predice, ejecuta, observa y reflexiona** 𖤓 ☆ ☼ ⋆⋅**
 
-HACES HASTA LA ACTIVIDAD 5 
-YOU HAVE A LOT OF THINGS TO DO 
+**[PREDICE]** El código parece leer y apuntar una variable para luego modificarla
+
+**[EJECUTA]** El código tiene la variable a = 10, el puntero se declara y apunta a la variable a, para luego, gracias al "*" pódamos acceder al valor de la variable a, es decir, el 10 y modificarlo en la última línea. haciendo que quede a = 20
+
+**[OBSERVA]** No sabia que se podian alterar directamente las variables, es facil de hacer. Tengo que acostumbrarme a leer bien el orden de las variables por que a veces me confunco
+
+**[REFLEXIONA]** Es bastante util detalle de poder alterar directamente el valor de las variables sin siquiera llamarlas directamente
