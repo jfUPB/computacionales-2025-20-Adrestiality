@@ -169,3 +169,235 @@ int main() {
 >
 > 3. la función "swapPorPuntero" , como lo dice su nombre, crea punteros que intercambian las dos variables. Eso sí, para este punto del código, las variables ya estaban intercambiadas por el "swapPorReferencia" por lo que los punteros simplemente reordenaron nuevamente los valores de las variables originales
 
+## **ACTIVIDAD 03 ༓☾∘∙•⋅⋅⊰⋅•⋅**
+
+```c++
+#include <iostream>
+#include <cstdlib>
+
+using namespace std;
+
+// Variables globales
+int global_inicializada = 42;
+int global_no_inicializada;
+
+// Constante global
+const char* const mensaje_ro = "Hola, memoria de solo lectura";
+
+// Función de ejemplo que muestra la dirección de su variable local estática
+void funcionConStatic() {
+    static int var_estatica = 100;
+    cout << "Dirección de var_estatica (static): " << &var_estatica << endl;
+}
+
+// Función que asigna memoria dinámica (heap)
+int* crearArrayHeap(int tam) {
+    int* arr = new int[tam];
+    for (int i = 0; i < tam; i++) {
+        arr[i] = i;
+    }
+    return arr;
+}
+
+// Una función simple para representar el código (se encontrará en la región de código)
+int suma(int a, int b) {
+    int c = a + b; // "c" es una variable local (stack)
+    return c;
+}
+
+int main() {
+    // Variable local (stack)
+    int a = 10;
+    int b = 20;
+    int c = suma(a, b);
+
+    cout << "Resultado de suma(a, b): " << c << endl;
+    cout << "Dirección de variable local 'a': " << &a << endl;
+    cout << "Dirección de variable local 'b': " << &b << endl;
+    cout << "Dirección de la variable local 'c' (resultado): " << &c << endl;
+
+    // Variables globales
+    cout << "Dirección de 'global_inicializada': " << &global_inicializada << endl;
+    cout << "Dirección de 'global_no_inicializada': " << &global_no_inicializada << endl;
+
+    // Constante global (solo lectura)
+    cout << "Dirección de 'mensaje_ro' (zona de solo lectura): " << static_cast<const void*>(mensaje_ro) << endl;
+
+    // Llamada a función que tiene variable estática
+    funcionConStatic();
+
+    // Uso del Heap: asignación dinámica
+    int tamArray = 10;
+    int* arrayHeap = crearArrayHeap(tamArray);
+    cout << "Dirección del primer elemento del array asignado en Heap: " << arrayHeap << endl;
+    for (int i = 0; i < tamArray; i++) {
+        cout << "arrayHeap[" << i << "] = " << arrayHeap[i]
+            << " en " << (arrayHeap + i) << endl;
+    }
+    delete[] arrayHeap; // Liberamos la memoria dinámica
+
+    return 0;
+}
+```
+```cpp
++-----------------------------------------------------------------+
+| [TEXT]                                                          |
+|  main                                                           |
+|  suma                                                           |
+|  crearArrayHeap                                                 |
+|  funcionConStatic                                               |
++-----------------------------------------------------------------+
+| [VARIABLES GLOBALES Y ESTÁTICAS]                                |
+| int global_inicializada = 42;                                   |
+| int global_no_inicializada;                                     |
+| const char* const mensaje_ro = "Hola, memoria de solo lectura"; |
+| static int var_estatica = 100;  // en funcionConStatic()        |
++-----------------------------------------------------------------+
+| [HEAP]                                                          | 
+| int* arr = new int[tam];  // en crearArrayHeap()                |
++-----------------------------------------------------------------+
+| [STACK]                                                         |
+| int a = 10;                                                     |
+| int b = 20;                                                     |
+| int c = suma(a, b);                                             |
+| int c = a + b;                                                  |
+| int* arr;                                                       | 
+| int i;                                                          |
++-----------------------------------------------------------------+
+```
+## **ACTIVIDAD 04 ༓☾∘∙•⋅⋅⊰⋅•⋅**
+-	[EXPERIMENTO 1]
+```
+#include <iostream>
+#include <cstdlib>
+
+using namespace std;
+
+
+int main() {
+    // Variable local (stack)
+    int a = 10;
+    int b = 20;
+
+    /**********************************************************
+        EXPERIMENTO 1
+    ***********************************************************/
+
+    void* ptr = reinterpret_cast<void*>(&main);
+    cout << "Voy a modificar la memoria en la dirección: " << ptr << endl;
+    *reinterpret_cast<int*>(ptr) = 0;
+
+    /********************************************************/
+
+    return 0;
+}
+```
+>- [¿Qué ocurre? ¿Por qué?]
+> Lo que planeta este código es tratar de poner un 0 en una dirección del main, que se encuentra en el bloque TEXT, que son solo de lectura y no pueden modificarse
+
+-	[EXPERIMENTO 2]
+```
+#include <iostream>
+#include <cstdlib>
+
+using namespace std;
+
+// Constante global
+const char* const mensaje_ro = "Hola, memoria de solo lectura";
+
+
+int main() {
+    // Variable local (stack)
+    int a = 10;
+    int b = 20;
+
+
+    /**********************************************************
+        EXPERIMENTO 2
+    ***********************************************************/
+
+    char* ptr = (char*)&mensaje_ro;
+    cout << "Voy a modificar la memoria en la dirección: " << ptr << endl;
+    *ptr = 0;
+
+    /********************************************************/
+
+    return 0;
+}
+```
+>- [¿Qué ocurre? ¿Por qué?]
+>
+
+-	[EXPERIMENTO 3]
+```
+#include <iostream>
+#include <cstdlib>
+
+using namespace std;
+
+// Variables globales
+int global_inicializada = 42;
+int global_no_inicializada;
+
+
+int main() {
+    // Variable local (stack)
+    int a = 10;
+    int b = 20;
+
+    /**********************************************************
+        EXPERIMENTO 3
+    ***********************************************************/
+
+    cout << "global_inicializada: " << global_inicializada << endl;
+    cout << "global_no_inicializada: " << global_no_inicializada << endl;
+
+
+    global_inicializada = 69;
+    global_no_inicializada = 666;
+
+    cout << "global_inicializada: " << global_inicializada << endl;
+    cout << "global_no_inicializada: " << global_no_inicializada << endl;
+
+    /********************************************************/
+
+    return 0;
+}
+```
+>- [¿Qué ocurre? ¿Por qué?]
+>
+
+-	[EXPERIMENTO 4]
+```
+#include <iostream>
+#include <cstdlib>
+
+using namespace std;
+
+// Función de ejemplo que muestra la dirección de su variable local estática
+void funcionConStatic() {
+    static int var_estatica = 100;
+    cout << "Dirección de var_estatica (static): " << &var_estatica << endl;
+}
+
+
+int main() {
+    // Variable local (stack)
+    int a = 10;
+    int b = 20;
+
+    /**********************************************************
+        EXPERIMENTO 4
+    ***********************************************************/
+
+    var_estatica = 42;
+
+    cout << "var_estatica: " << var_estatica << endl;
+
+    /********************************************************/
+    return 0;
+}
+```
+>- [¿Qué ocurre? ¿Por qué?]
+>
+
