@@ -162,4 +162,10 @@ int main() {
 ```
 <img width="442" height="495" alt="image" src="https://github.com/user-attachments/assets/22f18fb9-4c47-448d-b104-461eb6951e38" />
 
+>- [EXPLICACIÓN DEL CÓDIGO]  
+> 1. La función "swapPorValor" basicamente crea una copia del valor de la variable y es la que modifica. Por ende cuando lo imprimimos en la consola, realmente lo que imprime son las variables normales sin modificar. En la línea "cout << "Dentro de swapPorValor (copias): a = " << a << ", b = " << b << endl;" imprimimos el valor de las copias de las variables que intercambiamos
+>
+> 2. La función "swapPorReferencia" es por así decirlo, la funcion más literal. Intercmbia los valores directamente y ya
+>
+> 3. la función "swapPorPuntero" , como lo dice su nombre, crea punteros que intercambian las dos variables. Eso sí, para este punto del código, las variables ya estaban intercambiadas por el "swapPorReferencia" por lo que los punteros simplemente reordenaron nuevamente los valores de las variables originales
 
