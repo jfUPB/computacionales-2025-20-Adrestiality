@@ -267,7 +267,7 @@ int main() {
 ```
 ## **ACTIVIDAD 04 ༓☾∘∙•⋅⋅⊰⋅•⋅**
 -	[EXPERIMENTO 1]
-```
+```c++
 #include <iostream>
 #include <cstdlib>
 
@@ -292,11 +292,11 @@ int main() {
     return 0;
 }
 ```
->- [¿Qué ocurre? ¿Por qué?]
+>- [¿Qué ocurre? ¿Por qué?]  
 > Lo que planeta este código es tratar de poner un 0 en una dirección del main, que se encuentra en el bloque TEXT, que son solo de lectura y no pueden modificarse
 
 -	[EXPERIMENTO 2]
-```
+```c++
 #include <iostream>
 #include <cstdlib>
 
@@ -325,11 +325,11 @@ int main() {
     return 0;
 }
 ```
->- [¿Qué ocurre? ¿Por qué?]
->
+>- [¿Qué ocurre? ¿Por qué?]  
+> En este código lo que se pretende es modificar la memoria de la dirección del mensaje de solo lectura. El problema esta en, valga la redundancia, que el texto está escrito en una funcion de solo lectura. Asi que el propio código trata de modificarla ilegalemnte con punteros pero acabamos llegando a una especie de funcion indefinida que genera error
 
 -	[EXPERIMENTO 3]
-```
+```c++
 #include <iostream>
 #include <cstdlib>
 
@@ -364,11 +364,11 @@ int main() {
     return 0;
 }
 ```
->- [¿Qué ocurre? ¿Por qué?]
->
+>- [¿Qué ocurre? ¿Por qué?]  
+>Este código nos muestra el como podemos manejar las variables globales. Cuando se ejecuta el código e inicializamos las variables, iniciamos una en 42, pero la segunda a la que no se le asignó un numero, se le asigna automáticamente a 0. Luego ambos valores son modificados a 69 y 666 respectivamente
 
 -	[EXPERIMENTO 4]
-```
+```c++
 #include <iostream>
 #include <cstdlib>
 
@@ -398,6 +398,105 @@ int main() {
     return 0;
 }
 ```
->- [¿Qué ocurre? ¿Por qué?]
->
+>- [¿Qué ocurre? ¿Por qué?]  
+>Este código ni siquiera ejecuta, debido a que estamos tratando de modificar el valor de una variable estática que no se puede llamar o modificar desde el main
+>- [¿Qué pasa con las variables locales estáticas?]  
+> Estas solo se pueden modificar dentro de la funcion o bloque donde están declaradas. De resto no podremos ni llamarla desde el main, ya no está ni siquiera en el stack, esta en las variables globales realmente
+
+-	[EXPERIMENTO 5]
+```c++
+#include <iostream>
+#include <cstdlib>
+
+using namespace std;
+
+// Función de ejemplo que muestra la dirección de su variable local estática
+void funcionConStatic() {
+    static int var_estatica = 100;
+    cout << "var_estatica: " << var_estatica << endl;
+    var_estatica++;
+}
+
+void funcionSinStatic() {
+    int var_no_estatica = 100;
+    cout << "var_no_estatica: " << var_no_estatica << endl;
+    var_no_estatica++;
+}
+
+
+int main() {
+    // Variable local (stack)
+    int a = 10;
+    int b = 20;
+
+    /**********************************************************
+        EXPERIMENTO 5
+    ***********************************************************/
+
+    for (int i = 0; i < 5; i++) {
+        cout << "Iteración " << i << endl;
+        funcionSinStatic();
+        funcionConStatic();
+    }
+
+    /********************************************************/
+
+    return 0;
+}
+```
+>- [¿Qué ocurre? ¿Por qué?]  
+>Este código nos muestra las diferencias entre las variables estáticas y no estáticas. Para ello podemos ver como la varia estática, dado a que no se destruye en cada llamado y el contador le sigue sumando, mientras que la no estática se destruye en cada llamado, y aunque se le aplique el contador, se destruye al salir del bloque
+>- [Ves alguna diferencia entre las variables locales estáticas y no estáticas?]  
+> Las estáticas no se destruyen despues de cada función, las no estáticas si
+>- [¿Qué pasa con las variables cada que entras y sales de la función?]  
+>  Las no estáticas se destruyen y es como si no le hubiesen aplicado nada. Las estáticas permanecen
+
+-	[EXPERIMENTO 6]
+```c++
+#include <iostream>
+using namespace std;
+
+int main() {
+    // Tamaño del arreglo dinámico
+    int tam = 5;
+
+    // Asignar memoria en el Heap para un arreglo de enteros
+    int* arrayHeap = new int[tam];
+
+    // Inicializar y mostrar los valores y direcciones de memoria
+    for (int i = 0; i < tam; i++) {
+        arrayHeap[i] = (i + 1) * 10;
+        cout << "arrayHeap[" << i << "] = " << arrayHeap[i]
+            << " en dirección " << (arrayHeap + i) << endl;
+    }
+
+    // Liberar la memoria asignada en el Heap
+    delete[] arrayHeap;
+
+    /**********************************************************
+        EXPERIMENTO 6
+    ***********************************************************/
+
+    cout << arrayHeap[0] << endl;
+	//LINEA ERRONEA. ESTAMOS LLAMANDO UN PUNTERO A UNA MEMORIA QUE BORRAMOS EN LA LÍNEA ANTERIOR
+
+
+    /********************************************************/
+
+
+    return 0;
+}
+```
+>- [¿Qué ocurre? ¿Por qué?]    
+>Basicamente creamos un arreglode tamaño 5, le asignamos memoria y valores, luego liberamos la memoria y finalmente tratamos de llamar por medio de un puntero una memoria que acabamos de borrar, lo que genera error
+>- [¿Qué diferencias notas entre el comportamiento y la gestión del Heap en comparación con el Stack?]    
+>  Noto que el Stack se libera automáticamente despues de terminada cada función, mientras que el Heap, aunque parece tener más capacidad, se debe borrar automáticamente
+>- [¿Qué consecuencias tendría no liberar la memoria reservada con new?]  
+>  Podríamos quedarnos sin memoria
+>- [¿Qué pasa con las variables cada que entras y sales de la función?]  
+>  Siguen existiendo hasta que las borremos o liberemos
+>- [¿Por qué es importante usar delete[] al liberar memoria asignada para un arreglo?]  
+>  Para liberar la memoria y que no se ocupe
+
+## **ACTIVIDAD 05 ༓☾∘∙•⋅⋅⊰⋅•⋅**
 
