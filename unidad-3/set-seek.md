@@ -251,10 +251,10 @@ int main() {
 | int global_inicializada = 42;                                   |
 | int global_no_inicializada;                                     |
 | const char* const mensaje_ro = "Hola, memoria de solo lectura"; |
-| static int var_estatica = 100;  // en funcionConStatic()        |
+| static int var_estatica = 100;                                  |
 +-----------------------------------------------------------------+
 | [HEAP]                                                          | 
-| int* arr = new int[tam];  // en crearArrayHeap()                |
+| int* arr = new int[tam];                                        |
 +-----------------------------------------------------------------+
 | [STACK]                                                         |
 | int a = 10;                                                     |
@@ -292,8 +292,8 @@ int main() {
     return 0;
 }
 ```
->- [¿Qué ocurre? ¿Por qué?]  
-> Lo que planeta este código es tratar de poner un 0 en una dirección del main, que se encuentra en el bloque TEXT, que son solo de lectura y no pueden modificarse
+>- [¿Qué ocurre? ¿Por qué?]    
+> Lo que planeta este código es tratar de poner un 0 en una dirección del main, que se encuentra en el bloque TEXT, que son solo de lectura y no pueden modificarse  
 
 -	[EXPERIMENTO 2]
 ```c++
@@ -325,7 +325,7 @@ int main() {
     return 0;
 }
 ```
->- [¿Qué ocurre? ¿Por qué?]  
+>- [¿Qué ocurre? ¿Por qué?]    
 > En este código lo que se pretende es modificar la memoria de la dirección del mensaje de solo lectura. El problema esta en, valga la redundancia, que el texto está escrito en una funcion de solo lectura. Asi que el propio código trata de modificarla ilegalemnte con punteros pero acabamos llegando a una especie de funcion indefinida que genera error
 
 -	[EXPERIMENTO 3]
@@ -364,7 +364,7 @@ int main() {
     return 0;
 }
 ```
->- [¿Qué ocurre? ¿Por qué?]  
+>- [¿Qué ocurre? ¿Por qué?]    
 >Este código nos muestra el como podemos manejar las variables globales. Cuando se ejecuta el código e inicializamos las variables, iniciamos una en 42, pero la segunda a la que no se le asignó un numero, se le asigna automáticamente a 0. Luego ambos valores son modificados a 69 y 666 respectivamente
 
 -	[EXPERIMENTO 4]
@@ -398,10 +398,10 @@ int main() {
     return 0;
 }
 ```
->- [¿Qué ocurre? ¿Por qué?]  
->Este código ni siquiera ejecuta, debido a que estamos tratando de modificar el valor de una variable estática que no se puede llamar o modificar desde el main
->- [¿Qué pasa con las variables locales estáticas?]  
-> Estas solo se pueden modificar dentro de la funcion o bloque donde están declaradas. De resto no podremos ni llamarla desde el main, ya no está ni siquiera en el stack, esta en las variables globales realmente
+>- [¿Qué ocurre? ¿Por qué?]    
+>Este código ni siquiera ejecuta, debido a que estamos tratando de modificar el valor de una variable estática que no se puede llamar o modificar desde el main  
+>- [¿Qué pasa con las variables locales estáticas?]    
+> Estas solo se pueden modificar dentro de la funcion o bloque donde están declaradas. De resto no podremos ni llamarla desde el main, ya no está ni siquiera en el stack, esta en las variables globales realmente  
 
 -	[EXPERIMENTO 5]
 ```c++
@@ -444,13 +444,13 @@ int main() {
     return 0;
 }
 ```
->- [¿Qué ocurre? ¿Por qué?]  
->Este código nos muestra las diferencias entre las variables estáticas y no estáticas. Para ello podemos ver como la varia estática, dado a que no se destruye en cada llamado y el contador le sigue sumando, mientras que la no estática se destruye en cada llamado, y aunque se le aplique el contador, se destruye al salir del bloque
->- [Ves alguna diferencia entre las variables locales estáticas y no estáticas?]  
-> Las estáticas no se destruyen despues de cada función, las no estáticas si
->- [¿Qué pasa con las variables cada que entras y sales de la función?]  
->  Las no estáticas se destruyen y es como si no le hubiesen aplicado nada. Las estáticas permanecen
-
+>- [¿Qué ocurre? ¿Por qué?]    
+>Este código nos muestra las diferencias entre las variables estáticas y no estáticas. Para ello podemos ver como la varia estática, dado a que no se destruye en cada llamado y el contador le sigue sumando, mientras que la no estática se destruye en cada llamado, y aunque se le aplique el contador, se destruye al salir del bloque  
+>- [Ves alguna diferencia entre las variables locales estáticas y no estáticas?]    
+> Las estáticas no se destruyen despues de cada función, las no estáticas si  
+>- [¿Qué pasa con las variables cada que entras y sales de la función?]    
+>  Las no estáticas se destruyen y es como si no le hubiesen aplicado nada. Las estáticas permanecen  
+  
 -	[EXPERIMENTO 6]
 ```c++
 #include <iostream>
@@ -499,4 +499,200 @@ int main() {
 >  Para liberar la memoria y que no se ocupe
 
 ## **ACTIVIDAD 05 ༓☾∘∙•⋅⋅⊰⋅•⋅**
+```c++
+#include <iostream>
+#include <string>
+using namespace std;
 
+class Punto {
+public:
+  string name;
+    int x;
+    int y;
+
+    // Constructor
+    Punto(string _name, int _x, int _y) : name(_name),x(_x), y(_y) {
+        cout << "Constructor: Punto "<< name <<" (" << x << ", " << y << ") creado." << endl;
+    }
+
+    // Destructor
+    ~Punto() {
+        cout << "Destructor: Punto " << name << "(" << x << ", " << y << ") destruido." << endl;
+    }
+
+    // Método para imprimir valores
+    void imprimir() {
+        cout << "Punto "<< name << "(" << x << ", " << y << ")" << endl;
+    }
+};
+
+
+int main() {
+    // Objeto original
+    Punto original("original",70, 80);
+    original.imprimir();
+    Punto* p = &original;
+
+    // Copia del objeto
+    Punto copia = original;
+    copia.name = "copia";
+    copia.x = 100;
+    copia.y = 200;
+    copia.imprimir();
+    original.imprimir();
+
+    p->name = "p";
+    p->x = 300;
+    p->y = 400;
+    p->imprimir();
+    original.imprimir();
+
+    return 0;
+}
+```
+```c#
+using System;
+
+public class Punto
+{
+    public int x;
+    public int y;
+    public string name;
+
+    // Constructor
+    public Punto(string _name, int _x, int _y)
+    {
+        name = _name;
+        x = _x;
+        y = _y;
+        Console.WriteLine($"Constructor: Punto {name}({x}, {y}) creado.");
+    }
+
+    // Método para imprimir valores
+    public void Imprimir()
+    {
+        Console.WriteLine($"Punto {name}({x}, {y})");
+    }
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Objeto original
+        Punto original = new Punto("original",70, 80);
+        original.Imprimir();
+
+        Punto copia = original;
+        copia.name = "copia";
+        copia.x = 100;
+        copia.y = 200;
+        copia.Imprimir();
+        original.Imprimir();
+
+        // Coloca breakpoints en la creación de 'original' y en la línea de la copia.
+        // Observa que 'copia' es una copia independiente de 'original'.
+    }
+}
+```
+>-  **predice, ejecuta, observa y reflexiona** 𖤓 ☆ ☼ ⋆⋅**
+>
+>- [Explica qué ocurre al copiar un objeto en C++ y en C#. ¿Qué diferencias encuentras?]  
+>Cuando se duplica una clase en c++, se duplica el objeto y por ende su valor. Mientras que cuando se duplican las clases en c# los objetos apuntan al mismo valor.
+>- [¿Qué es copia en C++ y en C#? ¿Es una copia independiente de original?]  
+> Si, al menos en c++. En c++ podemos asignar valores a la original, crear la copia y modificar los valores de la copia, ademas de modficar al orginal por medio de punteros. En c# no pasa lo mismo, dado que ambas copias estan conecatdas, cuando se modifica una, la otra queda con la nueva modificacion también
+
+-	**Bitácora** 𖤓 ☆ ☼ ⋆⋅**
+```c++
+#include <iostream>
+
+int contador_global = 100;
+
+void ejecutarContador() {
+    static int contador_estatico = 0;
+    contador_estatico++;
+    std::cout << "  -> Llamada a ejecutarContador. Valor de contador_estatico: " << contador_estatico << std::endl;
+}
+
+void sumaPorValor(int a) {
+    a = a + 10;
+    std::cout << "  -> Dentro de sumaPorValor, 'a' ahora es: " << a << std::endl;
+}
+
+void sumaPorReferencia(int& a) {
+    a = a + 10;
+    std::cout << "  -> Dentro de sumaPorReferencia, 'a' ahora es: " << a << std::endl;
+}
+
+void sumaPorPuntero(int* a) {
+    *a = *a + 10;
+    std::cout << "  -> Dentro de sumaPorPuntero, '*a' ahora es: " << *a << std::endl;
+}
+
+int main() {
+    int val_A = 20;
+    int val_B = 20;
+    int val_C = 20;
+
+    std::cout << "--- Experimento con paso de parámetros ---" << std::endl;
+    std::cout << "Valor inicial de val_A: " << val_A << std::endl;
+    sumaPorValor(val_A);
+    std::cout << "Valor final de val_A: " << val_A << std::endl << std::endl;
+
+    std::cout << "Valor inicial de val_B: " << val_B << std::endl;
+    sumaPorReferencia(val_B);
+    std::cout << "Valor final de val_B: " << val_B << std::endl << std::endl;
+
+    std::cout << "Valor inicial de val_C: " << val_C << std::endl;
+    sumaPorPuntero(&val_C);
+    std::cout << "Valor final de val_C: " << val_C << std::endl << std::endl;
+
+    std::cout << "--- Experimento con variables estáticas ---" << std::endl;
+    ejecutarContador();
+    ejecutarContador();
+    ejecutarContador();
+
+    return 0;
+}
+```
+- **[¿Cuál será la salida final en la consola de este programa?]☆**  
+Este código es muy aprecido al de la actividad 2. Por lo que espero que la variable Val_A no se modifique, puesto que la funcion "sumaPorValor" solo hace cambios en una copia de Val_A, Val_B deberá sumarse con normalidad al igual que Val_C. No obstante con las variables estáticas no estoy segura. Veo que el contador de la variable estática se llama 3 veces, pero también hay un contador global y no sé si ese contador global tiene alguna participación dado a que no afecta en nada con los demás parámetros
+
+- **[Escribe la salida completa que esperas.]☆**  
+Val_A = 20, Val_B = 30, Val_C = 30; Contador Estático = 101, Contador Estático = 102, Contador Estático = 103
+
+- **[Dibuja un mapa de memoria conceptual de este programa justo antes de que main finalice. Debes indicar en qué segmento de memoria (Stack, Heap, Datos Globales/Estáticos, Código) se encontraría cada una de las siguientes variables: contador_global, contador_estatico, val_A, val_B, val_C (dentro de main), el parámetro a de la función sumaPorValor, la función main misma.]☆**    
+```cpp
++-----------------------------------------------------------------+
+| [TEXT]                                                          |
+|  main                                                           |
+|  sumaPorValor                                                   |
+|  sumaPorReferencia                                              |
+|  sumaPorPuntero												  |
+|  ejecutarContador                                               |
++-----------------------------------------------------------------+
+| [VARIABLES GLOBALES Y ESTÁTICAS]                                |
+| contador_global = 100                               		      |
+| contador_estatico = 3                                 		  |
++-----------------------------------------------------------------+
+| [HEAP]                                                          | 
+| No se usa                                                       |
++-----------------------------------------------------------------+
+| [STACK]                                                         |
+| Val_A = 20                                                  	  |
+| Val_B = 30                                                      |
+| Val_C = 30                                                      |                                                        
++-----------------------------------------------------------------+
+```
+- **[Compara la salida real con tu predicción. Si hubo diferencias, explica por qué ocurrieron. Evidencia clave: capturas de pantalla antes y después de los puntos de interés (¿Cuáles son esos puntos? -> tu tarea analizarlo).]☆**  
+La salida real fue Val_A = 20, Val_B = 30, Val_C = 30; Contador Estático = 1, Contador Estático = 2, Contador Estático = 3
+La salida con los parametros normales fue correcta, no obstante con el contador estático dió un valor diferente. A la final el contador global no afectaba, entonces como el contador estatico estaba iniciado en 	0 y se llamó tres veces, aumentó progresivamente 3 veces
+
+<img width="571" height="330" alt="image" src="https://github.com/user-attachments/assets/fcc3a1b9-573d-4037-9fd1-1eff408cbfd3" />
+	
+- **[Describe qué demuestran estas capturas sobre la diferencia entre los diferentes tipos de paso por parámetros analizados.]☆**  
+Paso por valor: el original no cambia, ya que se crea una copia del valor y se modifica la copia misma
+Paso por referencia y paso por puntero: el original sí cambia, solo cambia la forma en la que se hace, pues El paso por puntero requiere del uso de punteros
+
+- **[Explica con tus propias palabras el comportamiento de contador_estatico. ¿Por qué “recuerda” su valor entre llamadas a la función ejecutarContador? ¿En qué se diferencia de una variable local normal?]☆**  
+Es simple, porque nunca se elimina. A diferencia de los parámetros que si se eliminan una vez terminada su función, el contador al ser estático no se borra tras ser llamado, una o dos o tres veces. En este código realmente no se evidencia, pero si hipoteticamente quisieramos llamar a a por medio de su direccion terminadas sus funciones, seria una accion indefinida, o volvemos a llamar alguno de los parametros este se reabre y se crea otra a
