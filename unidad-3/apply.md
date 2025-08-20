@@ -257,8 +257,8 @@ int main() {
 
 >6.  [En este caso ¿Cuál es la diferencia entre pasar un objeto por valor, por referencia y por puntero?]  
 > Realmente la definición no cambia, independientemente si trabajamos con objetos o no  
-> Objeto por valor: Creamos copias independientes y se modifica dicha copia independiente  
-> Objeto por referencia y por puntero: Se crea un alias o un puntero que modifica directamente la variable original  
+> - Objeto por valor: Creamos copias independientes y se modifica dicha copia independiente  
+> - Objeto por referencia y por puntero: Se crea un alias o un puntero que modifica directamente la variable original  
 
 ## **ACTIVIDAD 09 ༓☾∘∙•⋅⋅⊰⋅•⋅**
 ```c++
@@ -323,21 +323,21 @@ int main() {
 >
 
 >-  [¿En dónde está almacenado el miembro valor y el miembro total de la clase Contador?]      
-> Valor: es una instancia, por lo que está dentro de cada objeto (stack para c1 y c2, heap para c3)  
-> Total: es un miembro estático, se guarda una sola vez donde están los datos estáticos del programa, es decir, junto con las variables globales  
+> - Valor: es una instancia, por lo que está dentro de cada objeto (stack para c1 y c2, heap para c3)  
+> - Total: es un miembro estático, se guarda una sola vez donde están los datos estáticos del programa, es decir, junto con las variables globales  
 >
 
 >1.  [¿Qué puedes concluir de los miembros estáticos y de instancia de una clase en C++? ¿Cómo se gestionan en memoria? ¿Qué ventajas y desventajas tienen? ¿Cuándo es útil utilizarlos?]    
-> Miembros Estáticos: Solo existen una vez para toda la clase y se guardan en las variables globales    
-> Miembros de instancia: Aquí, cada objeto tiene su propia copia, donde se gestionan la memoria del objeto en stack, donde funcionan como datos propios de cada objeto
+> - Miembros Estáticos: Solo existen una vez para toda la clase y se guardan en las variables globales    
+> - Miembros de instancia: Aquí, cada objeto tiene su propia copia, donde se gestionan la memoria del objeto en stack, donde funcionan como datos propios de cada objeto
 >
 
 >2.  [En el programa, en qué segmento de memoria se están almacenando c1, c2, c3 y Contador::total? Ten especial cuidado con la respuesta que das para el caso de c3, piensa de nuevo, qué es c3 y qué está almacenando. Ahora, responde de nuevo, en qué segmento de la memoria se está almacenando c3 y en qué segmento de la memoria se está almacenando el objeto al que apunta c3.]    
-> c1: objeto en stack  
-> c2: objeto en  stack  
-> c3: puntero en el stack  
-> *c3 (el objeto al que apunta): en el heap  
-> Contador::total: en el segmento de datos estáticos (compartido entre todas las instancias)  
+> - c1: objeto en stack  
+> - c2: objeto en  stack  
+> - c3: puntero en el stack  
+> - *c3 (el objeto al que apunta): en el heap  
+> - Contador::total: en el segmento de datos estáticos (compartido entre todas las instancias)  
 >
 
 ## **ACTIVIDAD 10 ༓☾∘∙•⋅⋅⊰⋅•⋅**
@@ -389,8 +389,8 @@ int main() {
 ```
 
 >1.  [Explica el ciclo de vida de un objeto en el stack versus uno en el heap.]  
-> Objeto en stack (pBloque): Este se construye al entrar en el bloque y se destruye automáticamente al salir del bloque, además de que su memoria se gestiona sola  
-> Objeto en heap (pDinamico): Se construye manualmente con new y se destruye solo cuando se llama delete, asi mismo, su memoria es manipulada manualmente, ya que si no se libera la memoria puede haber una fuga de memoria
+> - Objeto en stack (pBloque): Este se construye al entrar en el bloque y se destruye automáticamente al salir del bloque, además de que su memoria se gestiona sola  
+> - Objeto en heap (pDinamico): Se construye manualmente con new y se destruye solo cuando se llama delete, asi mismo, su memoria es manipulada manualmente, ya que si no se libera la memoria puede haber una fuga de memoria
 >
 
 ```c++
@@ -452,7 +452,7 @@ int main() {
 >
 
 >3.  [Modifica el programa para declarar pBloque2 por fuera del bloque, pero inicializarlo dentro del bloque. ¿Qué ocurre? ¿Por qué?]  
->Para ello, la variable pBloque2 debería vivir en el stack durante la ejecución de main, de modo en que despues de que se ejecute su bloque, siga existiendo en todo el main ya que la variable abarcaría todo el main
+> Para ello, la variable pBloque2 debería vivir en el stack durante la ejecución de main, de modo en que despues de que se ejecute su bloque, siga existiendo en todo el main ya que la variable abarcaría todo el main
 >
 
 ```c++
@@ -504,8 +504,8 @@ int main() {
 
 >4.  [¿Por qué el objeto pBloque se destruye al salir del bloque y pBloque2 no?
 Recuerda de nuevo, pBloque2 es un objeto o es una referencia a un objeto?]  
-> pBloque: es un objeto en stack, de modo en que su ciclo de vida esta condenado al bloque. Al salir, se destruye  
-> pBloque2: es un puntero en stack, pero apunta a un objeto creado con new en el heap. Cuando termina el bloque, el puntero sigue existiendo, pero el objeto al que apunta sigue vivo en el heap. Solo se destruye cuando haces delete pBloque2.
+> - pBloque: es un objeto en stack, de modo en que su ciclo de vida esta condenado al bloque. Al salir, se destruye  
+> - pBloque2: es un puntero en stack, pero apunta a un objeto creado con new en el heap. Cuando termina el bloque, el puntero sigue existiendo, pero el objeto al que apunta sigue vivo en el heap. Solo se destruye cuando haces delete pBloque2.
 >
 
 >5.  [¿En qué parte de la memoria se almacena pBloque2?]  
@@ -561,10 +561,72 @@ int main() {
 }
 ```
 -  [¿Cuál es el error?]      
+    - Error 1: La clase Personaje reserva memoria con new int[3], pero nunca libera esa memoria porque no tiene un destructor. Lo que genera una fuga de memoria    
+    - Error 2: En "Personaje copiaHeroe = heroe;" se realiza una copia automática por valor, lo cual tambien copia el puntero estadisticas, pero no los datos del arreglo
 
--  [¿Por qué ocurre? Explica el mecanismo a nivel de memoria (stack, heap, punteros)]      
+-  [¿Por qué ocurre? Explica el mecanismo a nivel de memoria (stack, heap, punteros)]
+   - Error 1: Al salir del bloque, el objeto heroe se destruye, pero su puntero estadisticas sigue apuntando a memoria en el heap que no se libera    
+   - Error 2: Las copias heroe.estadisticas y copiaHeroe.estadisticas apuntan a la misma dirección en el heap, de modo en que cuando termina la función, ambos objetos intentan usar el mismo bloque de memoria
 
 -  [¿Cuál es su consecuencia?]
+   - Error 1: Esto produce fugas de memoria. La memoria reservada queda ocupada pero inaccesible, el juego va consumiendo cada vez más RAM y eventualmente puede colapsar    
+   - Error 2: Cuando uno de los objetos libere la memoria (si tuviéramos si quiera un destructor), el otro quedaría apuntando a memoria inválida y colapsaría el programa. Pero como actualmente no hay ni siquiera un destructor, el error se manifiesta como fuga de memoria aún mayor, porque se reserva pero nunca se libera
 
--  [corrección código] 
+```c++
+#include <iostream>
+#include <string>
 
+class Personaje {
+public:
+    std::string nombre;
+    int* estadisticas;
+
+    // Constructor
+    Personaje(std::string n, int vida, int ataque, int defensa) {
+        nombre = n;
+        estadisticas = new int[3];
+        estadisticas[0] = vida;
+        estadisticas[1] = ataque;
+        estadisticas[2] = defensa;
+        std::cout << "Constructor: nace " << nombre << std::endl;
+    }
+
+    // Destructor para liberar memoria del heap
+    ~Personaje() {
+        delete[] estadisticas;
+        std::cout << "Destructor: muere " << nombre << std::endl;
+    }
+
+    void imprimir() {
+        std::cout << "Personaje " << nombre
+            << " [Vida: " << estadisticas[0]
+            << ", ATK: " << estadisticas[1]
+            << ", DEF: " << estadisticas[2]
+            << "]" << std::endl;
+    }
+};
+
+void simularEncuentro() {
+    std::cout << "\n--- Iniciando encuentro ---" << std::endl;
+    Personaje heroe("Aragorn", 100, 20, 15);
+
+    // En lugar de copia superficial, creamos manualmente una copia profunda
+    Personaje copiaHeroe("Copia de Aragorn",
+                         heroe.estadisticas[0],
+                         heroe.estadisticas[1],
+                         heroe.estadisticas[2]);
+
+    heroe.imprimir();
+    copiaHeroe.imprimir();
+
+    std::cout << "Saliendo del encuentro..." << std::endl;
+}
+
+int main() {
+    simularEncuentro();
+    std::cout << "\nSimulación terminada." << std::endl;
+    return 0;
+}
+```
+-  [Justificación]  
+En este código simplemente añadimos el destructor, así que liberamos la memoria. Y en vez de hacer una copia del heroe y que quede con puntero compartido, simplemente se crea otro objeto aparte pero con sus mismo valores y con el nombre de la copia del heroe, asi mismo el destructor destruye los dos objeto.
