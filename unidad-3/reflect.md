@@ -2,6 +2,8 @@
 
 ## 🤔 Fase: Reflect
 
+─── ･ ｡ﾟ☆: *.☽ .* :☆｡ﾟ.･ ｡ﾟ☆: *.☽ .* :☆｡ﾟ.･ ｡ﾟ☆: *.☽ .* :☆｡ﾟ.･ ｡ﾟ☆: *.☽ .* :☆｡ﾟ.･ ｡ﾟ☆: *.☽ .* :☆｡ﾟ.･ ｡ﾟ☆: *.☽ .* :☆｡ﾟ.･ ｡ﾟ☆: *.☽ .* :☆｡ﾟ.･ ｡ﾟ☆: *.☽ .* :☆｡ﾟ.･ ｡ﾟ☆: *.☽ .* :☆｡ﾟ.･ ｡ﾟ☆───
+
 ### **ACTIVIDAD 11 ༓☾∘∙•⋅⋅⊰⋅•⋅**
 
 ### [Parte 1]
@@ -114,5 +116,6 @@ Cambió mucho en el sentido de la vida util del objeto. Admito que no aprendi mu
 "Todo lo que creas se debe destruir en algun momento o de una u otra forma, sino vas a crear una fuga de memoria"  
 "Existen maneras diferentes de llamar parametros y variables. debes escoger la mejor para cada ocasion "  
 "Es muy importante saber en que momento estas creando y destruyendo cosas, que no vaya a ser que usted llame algo que ya destruiste"  
+
 
 
