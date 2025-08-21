@@ -73,3 +73,43 @@ Cambió mucho en el sentido de la vida util del objeto. Admito que no aprendi mu
 "Todo lo que creas se debe destruir en algun momento o de una u otra forma, sino vas a crear una fuga de memoria"
 "Existen maneras diferentes de llamar parametros y variables. debes escoger la mejor para cada ocasion "
 ""
+
+```
+#include <iostream>
+using namespace std;
+
+class Enemigo {
+public:
+    static int totalEnemigos;
+    int vida;
+    int* armas;
+
+    // Constructor
+    Enemigo(int v) : vida(v) {
+        totalEnemigos++;
+        armas = new int[3]{10, 15, 20};  // inicialización directa
+    }
+
+    // Destructor
+    ~Enemigo() {
+        delete[] armas;    // liberar memoria
+        totalEnemigos--;   // actualizar contador
+    }
+};
+
+int Enemigo::totalEnemigos = 0;
+
+void crearEscuadron() {
+    for(int i = 0; i < 5; i++) {
+        Enemigo soldado(100);
+        soldado.vida -= 10;
+    }
+    cout << "Escuadrón creado. Total enemigos: " << Enemigo::totalEnemigos << endl;
+}
+
+int main() {
+    crearEscuadron();
+    crearEscuadron();
+    return 0;
+}
+```
