@@ -1,10 +1,12 @@
 # Bitácora de aprendizaje de la unidad 5
 
 # 1.  **Diagnóstico inicial** ༓☾∘∙•⋅⋅⊰⋅•⋅**
-🐉🦎🐢🪲🩳🧩
+
 ## 🐛**ACTIVIDAD 01**🐛
 > [!WARNING]
 > NOTA: Genuinamente esta clase de conceptos de programación orientada a objetos se me complican mucho. Mis clases de POO eran muy parchadas y gran parte de estos conceptos fueron exposiciones que hicieron los estudiantes de la clase, por lo que en realidad no las applicamos... 
+
+**═∘◦✧◦∘═ 🧩PARTE 1🧩 ═∘◦✧◦∘═**
 
 -  ♻️ **¿Qué es el encapsulamiento para ti? Describe una situación en la que te haya sido útil o donde hayas visto su importancia**
 
@@ -23,6 +25,8 @@
 > Este creo que se refiere a diferentes comportamientos de un solo método. Esto hace que el código se vuelva versátil. Vamos a imaginar que tenemos una clase perro y otra clase gato, ambos con el método ladrar, no obstante el perro hace guau y el gato miau. pero ambos hacen uso del método ladrar
 >
 > Decimos que un código es polimórfico cuando usamos los métodos para diferentes comportamientos
+
+**═∘◦✧◦∘═ 🧩PARTE 2🧩 ═∘◦✧◦∘═**
 
 -  🍀 **Encapsulamiento**
 > - Señala una línea de código que sea un ejemplo claro de encapsulamiento y explica por qué lo es
@@ -57,9 +61,33 @@
 >
 > Finalmente llamamos el foreach, el cual nos perite ejecutar la clase Dibujar por cada elemento de la lista
 
+**═∘◦✧◦∘═ 🧩PARTE 3🧩 ═∘◦✧◦∘═**
 
+-  🦎 **Memoria y herencia**
+> - ¿Cómo te imaginas que se organizan esos tres datos en la memoria del computador para formar un solo objeto?
+> 
+>   0000
 
+-  🐢 **El mecanismo del polimorfismo**
+> - ¿Cómo decide el programa, mientras se está ejecutando, si debe llamar al Dibujar del Circulo o al del Rectangulo?
+> 
+>   0000
 
+-  🐸 **La barrera del encapsulamiento**
+> - ¿Cómo crees que el compilador logra que no puedas acceder a un miembro private desde fuera de la clase?
+> 
+>   0000
+> - ¿Es algo que se revisa cuando escribes el código, o es una protección que existe mientras el programa se ejecuta?
+> 
+>   0000
+> - ¿Por qué piensas eso?
+> 
+>   0000
+
+**═∘◦✧◦∘═ 🧩PARTE 4🧩 ═∘◦✧◦∘═**
+
+-  🦠 **RUTA SELECCIONADA:**
+> 000
 
 ## 2.  **La pregunta inicial** ༓☾∘∙•⋅⋅⊰⋅•⋅**
 
