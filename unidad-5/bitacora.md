@@ -95,13 +95,33 @@
 
 -  👾 **Analiza el código de la aplicación y trata de explicar en tus propias palabras qué está haciendo**
 >
-> 0000 ADJUNTAR CAPTURAS
+> - Primero analicemos la parte de App.h
+> 
+>      En breves palabras, en App.h el codigo tiene una clase de particulas con los metodos basicos para que se le     pueda asignar color, obtener su posicion, si esta proximas a morir,etc.. para luego crear otra clase que hereda de     la clase particula, que tiene más metodos como la vida, pero tambien le asigna una velocidad a la particula y     una condicion de explosion, de modo en que cuando llegue a cierto punto la pantalla este proxima a explotar.
+Luego tenemos una clase que establece la explosion de la particula, que luego da paso a tres clases diferentes que   establecen los diferentes tipos de explosiones que hay. Primero la de particulas circulares que le asigna valores     aleatorios a las velocidades de las particulas que salen de la explsión. Segundo, la de particula aleatorias y     tercero, la explosion de estrella que tiene bastantes operaciones con angulos.
+>
+> - Segundo analicemos la parte de App.cpp
+>    
+>    Ahora aquí, empezamos a actualizar constantemente el valor de las partoculas, y si llegan al punto en el que     deben explotar se les asigna aleatoriamente un tipo de explosion al azar y luego borra las particulas de la     explosion, Luego tenemos la seccíon que se encarga de crear y llenar todos los metodos de la clase que se encarga     del nacimiento de las particulas y darle direcciones y angulos aleatorios. Finalmente asignamos algunos comandos,     como por ejemplo que cuando presionas 'space' salen millones de bolitas a explotar a la vez o que con la 's' tomas     capturas en png y luego borramos todos los restantes y volvemos a empezar.
+> <img width="1020" height="761" alt="Captura de pantalla 2025-09-15 204159" src="https://github.com/user-attachments/assets/2c2c22a8-2d30-4c07-85ca-5e7bfb52510a" />
+> <img width="1019" height="756" alt="Captura de pantalla 2025-09-15 204149" src="https://github.com/user-attachments/assets/196d10e5-55f0-4dd3-ad0c-d44ac05bf67f" />
+> <img width="1006" height="742" alt="Captura de pantalla 2025-09-15 204331" src="https://github.com/user-attachments/assets/dade169e-41f2-43cf-81d2-9b8828ee5c4e" />
 
 ## 🎃**ACTIVIDAD 03**🎃 
 
 -  🐯 **Antes de ejecutar el experimento, ¿Qué esperas ver en memoria (hipótesis)? Ejecuta el código y muestra una captura de pantalla del objeto en la memoria. ¿Qué puedes observar? ¿Qué información te proporciona el depurador? ¿Qué puedes concluir?**
+> 
+> Inicialmente esperaba encontrar una serie de bytes en hexadecimal, aunque m elleve con la sorpresa de que todo estaba lleno de signos de interrogacion "?". siento que estoy haciendo algo mal
 >
-> 000
+> <img width="920" height="303" alt="Captura de pantalla 2025-09-15 221447" src="https://github.com/user-attachments/assets/1874f04f-f312-480e-acbd-8d9d1949da8b" />
+>
+> Efectivamente, AJAJ estaba haciendo todo mal, aqui esta el objeto en la memoria
+>
+> <img width="601" height="536" alt="image" src="https://github.com/user-attachments/assets/759366d6-22c0-4975-98e3-c03c9fa850b8" />
+><img width="919" height="289" alt="image" src="https://github.com/user-attachments/assets/44c62583-c3bd-4313-a955-3eaaf70c9286" />
+>
+> hablando un poco con mi relacion toxica (osea chaGPT) parece que el motivo por el cual la mamoria se veia von ??? es porque no podia acceder desde cualquier direccion arbitraria, sino desde el puntero this. me recuerda al encapsulamiento
+
 
 -  🦧 **¿Qué puedes observar en la memoria? ¿Qué información te proporciona el depurador? ¿Qué puedes concluir?**
 >
