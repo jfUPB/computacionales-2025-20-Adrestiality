@@ -83,11 +83,11 @@
 -  🦠 **RUTA SELECCIONADA:**
 > Tomaré la ruta guiada... aunque espero tener la oportunidad en algunos momentos tener exploraciones personales. La verdad, aunque siento que me he dado casi que por vencida con el codigo, siento que aun puedo seguirle intentando
 
-## 2.  **La pregunta inicial** ༓☾∘∙•⋅⋅⊰⋅•⋅**
+# 2.  **La pregunta inicial** ༓☾∘∙•⋅⋅⊰⋅•⋅**
 
 -  ✨ **¿Que tan efectivas son las medidas de encapsulamiento para evitar el hackeo, modificación o robos de datos en el código?** 
 
-## 3.  **Registro de exploración:** 
+# 3.  **Registro de exploración:** ༓☾∘∙•⋅⋅⊰⋅•⋅**
 > Aquí documentas cada ciclo de pregunta -> hipótesis -> experimento -> hallazgo -> reflexión.
 > Debe ser rico en evidencia visual (código, capturas del depurador con anotaciones, diagramas).
 
@@ -314,6 +314,6 @@ int main() {
 >
 > Los metodos virtuales le Indican al compilador que las llamadas deben resolverse en tiempo de ejecución, mientars que el Polimorfismo el comportamiento que nace de ese mecanismo: un mismo mensaje (update) produce diferentes respuestas dependiendo del tipo real del objeto.
 
-## 4.  **Consolidación, autoevaluación y cierre:**
+# 4.  **Consolidación, autoevaluación y cierre:** ༓☾∘∙•⋅⋅⊰⋅•⋅**
 > [!CAUTION]
 > Esta sección es OBLIGATORIA y central para tu evaluación
