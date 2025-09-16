@@ -171,6 +171,7 @@ int main() {
 - 🪽 **Ejecuta este código. Luego, descomenta las líneas que están comentadas y vuelve a compilar. ¿Qué sucede? ¿Por qué sucede esto? ¿Qué puedes concluir?**
 >
 ><img width="558" height="82" alt="image" src="https://github.com/user-attachments/assets/ee7c464d-6bd1-47d8-b7b6-0d63da06a917" />
+><img width="549" height="83" alt="image" src="https://github.com/user-attachments/assets/fbb5dca3-60f6-4a9c-8cec-805ce11c64a4" />
 >
 > Aqui se evidencia el concepto de encapsulamiento. Ya que al descomentar las lineas, nos da un error de que las cosas a las que le queremos poner valores especificos no se puede porque no se pueden modificar en ese contexto, ni acceder en ese contexto
 
@@ -207,7 +208,6 @@ int main() {
 - 🥌 **Compila el programa. ¿Qué pasa?**
 >
 ><img width="501" height="82" alt="image" src="https://github.com/user-attachments/assets/b3a15ec0-a8c4-4d31-86b4-c54e25c8ab04" />
-><img width="549" height="83" alt="image" src="https://github.com/user-attachments/assets/fbb5dca3-60f6-4a9c-8cec-805ce11c64a4" />
 >
 > Pasa lo mismo de hace un momento, no podemos acceder a secret.1
 
