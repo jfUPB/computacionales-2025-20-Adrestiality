@@ -109,7 +109,7 @@ Luego tenemos una clase que establece la explosion de la particula, que luego da
 
 ## 🎃**ACTIVIDAD 03**🎃 
 
--  🐯 **Antes de ejecutar el experimento, ¿Qué esperas ver en memoria (hipótesis)? Ejecuta el código y muestra una captura de pantalla del objeto en la memoria. ¿Qué puedes observar? ¿Qué información te proporciona el depurador? ¿Qué puedes concluir?**
+-  🐯 **Antes de ejecutar el experimento, ¿Qué esperas ver en memoria (hipótesis)? Ejecuta el código y muestra una captura de pantalla del objeto en la memoria. ¿Qué puedes observar? ¿Qué información te proporciona el depurador? ¿Qué puedes concluir? ¿Qué puedes observar en la memoria? ¿Qué información te proporciona el depurador? ¿Qué puedes concluir?**
 > 
 > Inicialmente esperaba encontrar una serie de bytes en hexadecimal, aunque m elleve con la sorpresa de que todo estaba lleno de signos de interrogacion "?". siento que estoy haciendo algo mal
 >
@@ -122,31 +122,29 @@ Luego tenemos una clase que establece la explosion de la particula, que luego da
 >
 > hablando un poco con mi relacion toxica (osea chaGPT) parece que el motivo por el cual la mamoria se veia von ??? es porque no podia acceder desde cualquier direccion arbitraria, sino desde el puntero this. me recuerda al encapsulamiento
 
-
--  🦧 **¿Qué puedes observar en la memoria? ¿Qué información te proporciona el depurador? ¿Qué puedes concluir?**
->
-> 000
-
 -  🦺 **Captura la _vtable de un objeto CircularExplosion, pega la imagen en tu bitácora, pero observa detenidamente la tabla de funciones. ¿Qué puedes observar?**
 >
-> 000 ADJUNTAR CAPTURAS
+> <img width="1312" height="411" alt="image" src="https://github.com/user-attachments/assets/2e2acbec-8776-4881-a6e6-945c180a1f15" />
+>
+> Podemos observar los metodos, tanto propias como heredadas, dela explosion circular, explosion de particula y de la propia particula
+
+-  🦧 **Ahora, captura en memoria la _vtable de un objeto StarExplosion, pega la imagen en tu bitácora y observa detenidamente la tabla de funciones.**
+>
+> <img width="1313" height="459" alt="image" src="https://github.com/user-attachments/assets/804a3f29-8d99-44c0-894a-42d4f842432b" />
 
 -  🏀 ** Observa de nuevo ambas tablas y compara. ¿Qué puedes ver? ¿Qué puedes concluir? ¿Qué relación existe entre la tabla de funciones y los métodos virtuales?**
 >
-> 0000
+>Creo que aqui se evidencia un poco el polimorfismo, ya que considero que tienen los mismos metodos pero algunos de estos vienen de las clases circulo o estrella mientras el resto vienen de las clases bases de las cuales hereda
 
 -  🧱 **¿Para qué crees que pueda servir una tabla de funciones virtuales?**
 >
-> 0000
+> Considero que es til para todo lo que cabamos de hacer, evidenciar la herencia y el polimorfismo
 
 -  🦋 **Nota que el método HacerSonido se llama dos veces, una vez para el perro y otra vez para el gato. ¿Cómo se logra esto? ¿Qué relación existe entre los métodos virtuales y el polimorfismo? Al llamar HacerSonido cómo sabe esta función sobre cuál objeto debe actuar?**
 >
-> 0000
+> Es como el ejercicio de la actividad 1 con el circulo y el rectangulo. Creamos una lista y hacemos que llamamos el sonido por cada objeto que creamos en la lista (es decir, el foreach) 
 
 ## 👻**ACTIVIDAD 04**👻  
-
-🐚🪽🦢🕊️🐇🐑🦙🐻‍❄️🐰🕸️🦴🦷🏐🥌⛸️🪩🎲🎼🪨💿
-
 ```
 class AccessControl {
 
@@ -170,7 +168,11 @@ int main() {
 }
 ```
 
-Ejecuta este código. Luego, descomenta las líneas que están comentadas y vuelve a compilar. ¿Qué sucede? ¿Por qué sucede esto? ¿Qué puedes concluir?
+- 🪽 **Ejecuta este código. Luego, descomenta las líneas que están comentadas y vuelve a compilar. ¿Qué sucede? ¿Por qué sucede esto? ¿Qué puedes concluir?**
+>
+><img width="558" height="82" alt="image" src="https://github.com/user-attachments/assets/ee7c464d-6bd1-47d8-b7b6-0d63da06a917" />
+>
+> Aqui se evidencia el concepto de encapsulamiento. Ya que al descomentar las lineas, nos da un error de que las cosas a las que le queremos poner valores especificos no se puede porque no se pueden modificar en ese contexto, ni acceder en ese contexto
 
 ```
 #include <iostream>
@@ -202,7 +204,12 @@ int main() {
 }
 ```
 
-Compila el programa. ¿Qué pasa?
+- 🥌 **Compila el programa. ¿Qué pasa?**
+>
+><img width="501" height="82" alt="image" src="https://github.com/user-attachments/assets/b3a15ec0-a8c4-4d31-86b4-c54e25c8ab04" />
+><img width="549" height="83" alt="image" src="https://github.com/user-attachments/assets/fbb5dca3-60f6-4a9c-8cec-805ce11c64a4" />
+>
+> Pasa lo mismo de hace un momento, no podemos acceder a secret.1
 
 ```
 #include <iostream>
@@ -240,25 +247,72 @@ int main() {
     return 0;
 }
 ```
-Compila el programa y ejecuta. ¿Qué puedes concluir?
+- 🦴**Compila el programa y ejecuta. ¿Qué puedes concluir?**
+>
+> La verdad tuve que consultar un poco lo que era "reinterpret_cast", pero al parecer funciona como una especie de puntero durante el tiempo real de la ejecucion, lo que nos permite acceder y modificar cosas cuando teoricamente no podemos
 
-En tus palabras, ¿Qué es el encapsulamiento? ¿Por qué es importante?
+- 🐚**En tus palabras, ¿Qué es el encapsulamiento? ¿Por qué es importante?**
+>
+> Es un primcipio de poo, que nos permite ocultar los detalles internos de una clase y exponer lo necesario. Es importante porque protege los datos de ser modificados por segundos
 
+## 🪼**ACTIVIDAD 05**🪼 
+- 🐳 **captura de nuevo la memoria que ocupa el objeto CircularExplosion compara la jerarquía de clases con los campos en memoria del objeto. ¿Qué puedes observar? ¿Qué información te proporciona el depurador? ¿Qué puedes concluir?**
+>
+> <img width="1312" height="411" alt="image" src="https://github.com/user-attachments/assets/d5b8a6fa-b2d7-4e22-ac23-c350eb709c0a" />
+> Exactamente lo mismo que hace un momento, podemos evidenciar como una cadenita de metodos. Los de particle, explosionpaarticle y del mismo circularexplosion. Todo fue heredado 
 
+- 🐠 **¿Cómo se implementa la herencia en C++?**
+>
+> De lo que he visto, tiene la herencia normal, multiple, si hay metodos virtuales se crea un puntero escondido en la vtable
 
+- 🔷 **C++ permite hacer algo que C# no: herencia múltiple. Realiza un experimento que te permita ver cómo se objeto en memoria cuya clase base tiene herencia múltiple.**
+>
+> Ya sabia que visual studio no tenia opcion para la herencia multiple, pero jamas la habia evidenciado en c++. Para ello le pedi a una ia que hiciera un ejemplo sencillo. Veamos
+````
+#include <iostream>
 
+class A {
+public:
+    int a;
+};
 
+class B {
+public:
+    int b;
+};
 
+class C : public A, public B {
+public:
+    int c;
+};
 
+int main() {
+    C obj;
+    obj.a = 10;
+    obj.b = 20;
+    obj.c = 30;
 
+    // Punto de parada para inspeccionar en memoria
+    std::cout << "Detén aquí y revisa 'obj' en el depurador\n";
 
+    return 0;
+}
+````
+> La propia IA me indico poner un breakpoint y revisar la vtable. veamos que hay
+> 
+> <img width="969" height="119" alt="image" src="https://github.com/user-attachments/assets/85eac5d5-19bb-4263-af36-81b4506f95d0" />
 
+## 👑**ACTIVIDAD 06**👑 
 
+- ✨ **Realiza un dibujo con el cuál expliques cómo se implementa el polimorfismo en tiempo de ejecución. Utiliza el concepto de métodos virtuales y la tabla de funciones virtuales. ¿Qué puedes concluir?**
+>
+><img width="755" height="482" alt="image" src="https://github.com/user-attachments/assets/2df1ca24-d50e-412b-9817-2227b45410f2" />
 
+>000 HACER DIBUJO
 
-
-
-
+- 🐥 **¿Qué relación existe entre los métodos virtuales y el polimorfismo?**
+>
+> Los metodos virtuales le Indican al compilador que las llamadas deben resolverse en tiempo de ejecución, mientars que el Polimorfismo el comportamiento que nace de ese mecanismo: un mismo mensaje (update) produce diferentes respuestas dependiendo del tipo real del objeto.
 
 ## 4.  **Consolidación, autoevaluación y cierre:**
 > [!CAUTION]
