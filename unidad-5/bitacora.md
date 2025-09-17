@@ -85,7 +85,7 @@
 
 # 2.  **La pregunta inicial** ༓☾∘∙•⋅⋅⊰⋅•⋅**
 
--  ✨ **¿Que tan efectivas son las medidas de encapsulamiento para evitar el hackeo, modificación o robos de datos en el código?** 
+-  🦑 Ya que decidí irme por la ruta guiada, asi que tus preguntas serán las mías también
 
 # 3.  **Registro de exploración:** ༓☾∘∙•⋅⋅⊰⋅•⋅**
 > Aquí documentas cada ciclo de pregunta -> hipótesis -> experimento -> hallazgo -> reflexión.
@@ -120,7 +120,7 @@ Luego tenemos una clase que establece la explosion de la particula, que luego da
 > <img width="601" height="536" alt="image" src="https://github.com/user-attachments/assets/759366d6-22c0-4975-98e3-c03c9fa850b8" />
 ><img width="919" height="289" alt="image" src="https://github.com/user-attachments/assets/44c62583-c3bd-4313-a955-3eaaf70c9286" />
 >
-> hablando un poco con mi relacion toxica (osea chaGPT) parece que el motivo por el cual la mamoria se veia von ??? es porque no podia acceder desde cualquier direccion arbitraria, sino desde el puntero this. me recuerda al encapsulamiento
+> hablando un poco con mi relacion toxica (osea chaGPT) parece que el motivo por el cual la mamoria se veia con ??? es porque no podia acceder desde cualquier direccion arbitraria, sino desde el puntero this. me recuerda al encapsulamiento
 
 -  🦺 **Captura la _vtable de un objeto CircularExplosion, pega la imagen en tu bitácora, pero observa detenidamente la tabla de funciones. ¿Qué puedes observar?**
 >
@@ -145,7 +145,7 @@ Luego tenemos una clase que establece la explosion de la particula, que luego da
 > Es como el ejercicio de la actividad 1 con el circulo y el rectangulo. Creamos una lista y hacemos que llamamos el sonido por cada objeto que creamos en la lista (es decir, el foreach) 
 
 ## 👻**ACTIVIDAD 04**👻  
-```
+```c#
 class AccessControl {
 
 private:
@@ -175,7 +175,7 @@ int main() {
 >
 > Aqui se evidencia el concepto de encapsulamiento. Ya que al descomentar las lineas, nos da un error de que las cosas a las que le queremos poner valores especificos no se puede porque no se pueden modificar en ese contexto, ni acceder en ese contexto
 
-```
+```c++
 #include <iostream>
 
 class MyClass {
@@ -211,7 +211,7 @@ int main() {
 >
 > Pasa lo mismo de hace un momento, no podemos acceder a secret.1
 
-```
+```c++
 #include <iostream>
 
 class MyClass {
@@ -256,6 +256,7 @@ int main() {
 > Es un primcipio de poo, que nos permite ocultar los detalles internos de una clase y exponer lo necesario. Es importante porque protege los datos de ser modificados por segundos
 
 ## 🪼**ACTIVIDAD 05**🪼 
+
 - 🐳 **captura de nuevo la memoria que ocupa el objeto CircularExplosion compara la jerarquía de clases con los campos en memoria del objeto. ¿Qué puedes observar? ¿Qué información te proporciona el depurador? ¿Qué puedes concluir?**
 >
 > <img width="1312" height="411" alt="image" src="https://github.com/user-attachments/assets/d5b8a6fa-b2d7-4e22-ac23-c350eb709c0a" />
@@ -267,8 +268,8 @@ int main() {
 
 - 🔷 **C++ permite hacer algo que C# no: herencia múltiple. Realiza un experimento que te permita ver cómo se objeto en memoria cuya clase base tiene herencia múltiple.**
 >
-> Ya sabia que visual studio no tenia opcion para la herencia multiple, pero jamas la habia evidenciado en c++. Para ello le pedi a una ia que hiciera un ejemplo sencillo. Veamos
-````
+> Ya sabia que visual studio no tenia opcion para la herencia multiple, pero jamas la habia evidenciado en c++. Para ello le pedi a una IA que hiciera un ejemplo sencillo. Veamos
+````C++
 #include <iostream>
 
 class A {
@@ -304,16 +305,497 @@ int main() {
 
 ## 👑**ACTIVIDAD 06**👑 
 
-- ✨ **Realiza un dibujo con el cuál expliques cómo se implementa el polimorfismo en tiempo de ejecución. Utiliza el concepto de métodos virtuales y la tabla de funciones virtuales. ¿Qué puedes concluir?**
->
-><img width="755" height="482" alt="image" src="https://github.com/user-attachments/assets/2df1ca24-d50e-412b-9817-2227b45410f2" />
-
->000 HACER DIBUJO
-
 - 🐥 **¿Qué relación existe entre los métodos virtuales y el polimorfismo?**
 >
 > Los metodos virtuales le Indican al compilador que las llamadas deben resolverse en tiempo de ejecución, mientars que el Polimorfismo el comportamiento que nace de ese mecanismo: un mismo mensaje (update) produce diferentes respuestas dependiendo del tipo real del objeto.
 
+## 🦩**ACTIVIDAD 06**🦩 
+
+> Lo que realicé para esta actividad, fueron dos tipos de partículas que rebotaban en las paredes, una siendo un cuadrado que variaba de tamaño y otra siendo un pentátono, y finalmente un tipo de explosión con partículas en forma de hectágono.
+>
+> Veamos el código
+
+**ofApp.h**
+```` c#
+#pragma once
+#include "ofMain.h"
+#include <vector>
+
+// -------------------------------------------------
+// Clase base abstracta: Particle
+// -------------------------------------------------
+class Particle {
+public:
+	virtual ~Particle() {}
+	virtual void update(float dt) = 0;
+	virtual void draw() = 0;
+	virtual bool isDead() const = 0;
+	virtual bool shouldExplode() const { return false; }
+	virtual glm::vec2 getPosition() const { return glm::vec2(0, 0); }
+	virtual ofColor getColor() const { return ofColor(255); }
+};
+
+// -------------------------------------------------
+// RisingParticle
+// -------------------------------------------------
+class RisingParticle : public Particle {
+protected:
+	glm::vec2 position;
+	glm::vec2 velocity;
+	ofColor color;
+	float lifetime;
+	float age;
+	bool exploded;
+
+public:
+	RisingParticle(const glm::vec2& pos, const glm::vec2& vel, const ofColor& col, float life)
+		: position(pos)
+		, velocity(vel)
+		, color(col)
+		, lifetime(life)
+		, age(0)
+		, exploded(false) {
+	}
+
+	void update(float dt) override {
+		position += velocity * dt;
+		age += dt;
+		velocity.y += 9.8f * dt * 8;
+		float explosionThreshold = ofGetHeight() * 0.15 + ofRandom(-30, 30);
+		if (position.y <= explosionThreshold || age >= lifetime) {
+			exploded = true;
+		}
+	}
+
+	void draw() override {
+		ofSetColor(color);
+		ofDrawCircle(position, 10);
+	}
+
+	bool isDead() const override { return exploded; }
+	bool shouldExplode() const override { return exploded; }
+	glm::vec2 getPosition() const override { return position; }
+	ofColor getColor() const override { return color; }
+};
+
+// -------------------------------------------------
+// PARTICULA NUEVA 1: BouncingSquareParticle
+// -------------------------------------------------
+class BouncingSquareParticle : public Particle {
+private:
+	glm::vec2 position;
+	glm::vec2 velocity;
+	ofColor color;
+	float age;
+	float lifetime;
+	bool exploded;
+
+public:
+	BouncingSquareParticle(const glm::vec2& pos, const glm::vec2& vel, const ofColor& col)
+		: position(pos)
+		, velocity(vel)
+		, color(col)
+		, age(0)
+		, lifetime(ofRandom(2, 4))
+		, exploded(false) {
+	}
+
+	void update(float dt) override {
+		position += velocity * dt;
+		age += dt;
+
+		// Rebote en los bordes de la ventana
+		if (position.x <= 0 || position.x >= ofGetWidth()) velocity.x *= -1;
+		if (position.y <= 0 || position.y >= ofGetHeight()) velocity.y *= -1;
+
+		if (age >= lifetime) {
+			exploded = true;
+		}
+	}
+
+	void draw() override {
+		ofSetColor(color);
+		ofDrawRectangle(position, position.x/10, position.y/10);
+	}
+
+	bool isDead() const override { return exploded; }
+	bool shouldExplode() const override { return exploded; }
+	glm::vec2 getPosition() const override { return position; }
+	ofColor getColor() const override { return color; }
+};
+
+// -------------------------------------------------
+// PARTICULA NUEVA 2: BouncingPentagonParticle
+// -------------------------------------------------
+class BouncingPentagonParticle : public Particle {
+private:
+	glm::vec2 position;
+	glm::vec2 velocity;
+	ofColor color;
+	float age;
+	float lifetime;
+	bool exploded;
+
+public:
+	BouncingPentagonParticle(const glm::vec2& pos, const glm::vec2& vel, const ofColor& col)
+		: position(pos)
+		, velocity(vel)
+		, color(col)
+		, age(0)
+		, lifetime(ofRandom(2, 4))
+		, exploded(false) {
+	}
+
+	void update(float dt) override {
+		position += velocity * dt;
+		age += dt;
+
+		// Rebote en los bordes de la ventana
+		if (position.x <= 0 || position.x >= ofGetWidth()) velocity.x *= -1;
+		if (position.y <= 0 || position.y >= ofGetHeight()) velocity.y *= -1;
+
+		if (age >= lifetime) {
+			exploded = true;
+		}
+	}
+
+	void draw() override {
+		ofSetColor(color);
+
+		float centerX = position.x;
+		float centerY = position.y;
+		float radius = 35;
+		int sides = 5;
+		
+		ofSetLineWidth(3);
+		
+		ofPolyline pentagon;
+
+		for (int i = 0; i < sides; ++i) {
+			float angle = ofDegToRad(i * (360.0 / sides));
+
+			float x = centerX + radius * cos(angle);
+			float y = centerY + radius * sin(angle);
+
+			pentagon.addVertex(x, y);
+		}
+		pentagon.draw();
+	}
+
+	bool isDead() const override { return exploded; }
+	bool shouldExplode() const override { return exploded; }
+	glm::vec2 getPosition() const override { return position; }
+	ofColor getColor() const override { return color; }
+};
+
+// -------------------------------------------------
+// ExplosionParticle (base)
+// -------------------------------------------------
+class ExplosionParticle : public Particle {
+protected:
+	glm::vec2 position;
+	glm::vec2 velocity;
+	ofColor color;
+	float age;
+	float lifetime;
+	float size;
+
+public:
+	ExplosionParticle(const glm::vec2& pos, const glm::vec2& vel, const ofColor& col, float life, float sz)
+		: position(pos)
+		, velocity(vel)
+		, color(col)
+		, age(0)
+		, lifetime(life)
+		, size(sz) {
+	}
+
+	void update(float dt) override {
+		position += velocity * dt;
+		age += dt;
+		float alpha = ofMap(age, 0, lifetime, 255, 0, true);
+		color.a = alpha;
+	}
+
+	bool isDead() const override { return age >= lifetime; }
+};
+
+// -------------------------------------------------
+// CircularExplosion
+// -------------------------------------------------
+class CircularExplosion : public ExplosionParticle {
+public:
+	CircularExplosion(const glm::vec2& pos, const ofColor& col)
+		: ExplosionParticle(pos, glm::vec2(0, 0), col, 1.2f, ofRandom(16, 32)) {
+		float angle = ofRandom(0, TWO_PI);
+		float speed = ofRandom(80, 200);
+		velocity = glm::vec2(cos(angle), sin(angle)) * speed;
+	}
+
+	void draw() override {
+		ofSetColor(color);
+		ofDrawCircle(position, size);
+	}
+};
+
+// -------------------------------------------------
+// StarExplosion
+// -------------------------------------------------
+class StarExplosion : public ExplosionParticle {
+public:
+	StarExplosion(const glm::vec2& pos, const ofColor& col)
+		: ExplosionParticle(pos, glm::vec2(0, 0), col, 1.3f, ofRandom(20, 40)) {
+		float angle = ofRandom(0, TWO_PI);
+		float speed = ofRandom(90, 180);
+		velocity = glm::vec2(cos(angle), sin(angle)) * speed;
+	}
+
+	void draw() override {
+		ofSetColor(color);
+		int rays = 5;
+		float outerRadius = size;
+		float innerRadius = size * 0.5;
+		ofPushMatrix();
+		ofTranslate(position);
+		for (int i = 0; i < rays; i++) {
+			float theta = ofMap(i, 0, rays, 0, TWO_PI);
+			float xOuter = cos(theta) * outerRadius;
+			float yOuter = sin(theta) * outerRadius;
+			float xInner = cos(theta + PI / rays) * innerRadius;
+			float yInner = sin(theta + PI / rays) * innerRadius;
+			ofDrawLine(0, 0, xOuter, yOuter);
+			ofDrawLine(xOuter, yOuter, xInner, yInner);
+		}
+		ofPopMatrix();
+	}
+};
+
+// -------------------------------------------------
+// RandomExplosion
+// -------------------------------------------------
+class RandomExplosion : public ExplosionParticle {
+public:
+	RandomExplosion(const glm::vec2& pos, const ofColor& col)
+		: ExplosionParticle(pos, glm::vec2(0, 0), col, 1.5f, ofRandom(16, 32)) {
+		velocity = glm::vec2(ofRandom(-200, 200), ofRandom(-200, 200));
+	}
+
+	void draw() override {
+		ofSetColor(color);
+		ofDrawRectangle(position.x, position.y, size, size);
+	}
+};
+
+// -------------------------------------------------
+// NUEVA EXPLOSIÓN [HectagonExplosion]
+// -------------------------------------------------
+class HectagonExplosion : public ExplosionParticle {
+public:
+	HectagonExplosion(const glm::vec2& pos, const ofColor& col)
+		: ExplosionParticle(pos, glm::vec2(0, 0), col, 1.5f, ofRandom(16, 32)) {
+		velocity = glm::vec2(ofRandom(-200, 200), ofRandom(-200, 200));
+	}
+
+	void draw() override {
+		ofSetColor(color);
+
+		float centerX = position.x;
+		float centerY = position.y;
+		float radius = size;
+		int sides = 8;
+
+		ofPolyline Hectagon;
+
+		for (int i = 0; i < sides; ++i) {
+			float angle = ofDegToRad(i * (360.0 / sides));
+
+			float x = centerX + radius * cos(angle);
+			float y = centerY + radius * sin(angle);
+
+			Hectagon.addVertex(x, y);
+		}
+		Hectagon.draw();
+
+	}
+};
+
+// -------------------------------------------------
+// ofApp
+// -------------------------------------------------
+class ofApp : public ofBaseApp {
+public:
+	void setup();
+	void update();
+	void draw();
+	void mousePressed(int x, int y, int button);
+	void keyPressed(int key);
+
+	std::vector<Particle*> particles;
+	~ofApp();
+
+private:
+	void createRisingParticle();
+};
+````
+**ofApp.cpp**
+````c#
+#include "ofApp.h"
+
+// --------------------------------------------------------------
+void ofApp::setup() {
+	ofSetFrameRate(60);
+	ofBackground(0);
+}
+
+// --------------------------------------------------------------
+void ofApp::update() {
+	float dt = ofGetLastFrameTime();
+
+	for (int i = 0; i < particles.size(); i++) {
+		particles[i]->update(dt);
+	}
+
+	for (int i = particles.size() - 1; i >= 0; i--) {
+		if (particles[i]->shouldExplode()) {
+			int explosionType = (int)ofRandom(4);
+			int numParticles = (int)ofRandom(20, 30);
+			for (int j = 0; j < numParticles; j++) {
+				if (explosionType == 0) {
+					particles.push_back(new CircularExplosion(particles[i]->getPosition(), particles[i]->getColor()));
+				}
+				else if (explosionType == 1) {
+					particles.push_back(new RandomExplosion(particles[i]->getPosition(), particles[i]->getColor()));
+				}
+				else if (explosionType == 2) {
+					particles.push_back(new StarExplosion(particles[i]->getPosition(), particles[i]->getColor()));
+				}
+				else {
+					particles.push_back(new HectagonExplosion(particles[i]->getPosition(), particles[i]->getColor()));
+				}
+			}
+			delete particles[i];
+			particles.erase(particles.begin() + i);
+		}
+		else if (particles[i]->isDead()) {
+			delete particles[i];
+			particles.erase(particles.begin() + i);
+		}
+	}
+}
+
+// --------------------------------------------------------------
+void ofApp::draw() {
+	for (int i = 0; i < particles.size(); i++) {
+		particles[i]->draw();
+	}
+}
+
+// --------------------------------------------------------------
+void ofApp::createRisingParticle() {
+	// Generar desde la mitad de la pantalla
+	float minX = ofGetWidth() * 0.35;
+	float maxX = ofGetWidth() * 0.65;
+	float spawnX = ofRandom(minX, maxX);
+	glm::vec2 pos(spawnX, ofGetHeight() * 0.5);
+
+	glm::vec2 target(ofGetWidth() / 2 + ofRandom(-300, 300), ofGetHeight() * 0.10 + ofRandom(-30, 30));
+	glm::vec2 direction = glm::normalize(target - pos);
+	glm::vec2 vel = direction * ofRandom(250, 350);
+
+	ofColor col;
+	col.setHsb(ofRandom(255), 220, 255);
+	float lifetime = ofRandom(1.5, 3.5);
+
+	float choice = ofRandom(1.0);
+	if (choice < 0.5) {
+		particles.push_back(new RisingParticle(pos, vel, col, lifetime));
+	}
+	else if (choice < 0.75) {
+		particles.push_back(new  BouncingPentagonParticle(pos, vel, col));
+	}
+	else {
+		particles.push_back(new BouncingSquareParticle(pos, vel, col));
+	}
+}
+
+// --------------------------------------------------------------
+void ofApp::mousePressed(int x, int y, int button) {
+	createRisingParticle();
+}
+
+// --------------------------------------------------------------
+void ofApp::keyPressed(int key) {
+	if (key == ' ') {
+		for (int i = 0; i < 1000; i++) {
+			createRisingParticle();
+		}
+	}
+	if (key == 's') {
+		ofSaveScreen("screenshot_" + ofToString(ofGetFrameNum()) + ".png");
+	}
+}
+
+// --------------------------------------------------------------
+ofApp::~ofApp() {
+	for (int i = 0; i < particles.size(); i++) {
+		delete particles[i];
+	}
+	particles.clear();
+}
+````
+
+- 🧁 ** ¿Cómo y por qué de la implementación de los conceptos de encapsulamiento, herencia y polimorfismo en tu código? **
+>
+> - El encapsulamiento se evidencia en como en las propias clases hay atributos privados, como position, velocity, color, lifertime... pero podemos acceder a su información gracias a otros metodos publicos como detposition, getColor
+>
+> - La herencia se evidencia en como las clases de diferentes explosiones heredan de la explosion base y la explosion base de particula, asi mismo, los tipos de particulas diferentes heredan de particula tambien. Lo que me permitio jugar constantemente con los mismo valores, pero diferentes en cada clase
+>
+> - El polimorfismo me parece que aqui esta en tiempo de ejecucion. hay algunos punteros por ahi, que supongo que son los encargados de estar dando los valores a los metodos. adicionalemente se actualiza constantemente, lo que creo que nos permite trabajar con muchas particulas a la vez
+
+- 🧼 ** Explica cómo verificaste que cada una de las extensiones funciona correctamente, muestra capturas de pantalla del depurador donde evidencias lo anterior, en particular el polimorfismo en tiempo de ejecución.**
+>
+> Siempre ejecutaba el codigo despues de añadir si quiera una sola linea de codigo. Me gusta siempre experimentar y tratar de ser consiente que cuales son las lineas que hacen cosas que yo no quiero y como debo modificarlas para que cumplan su cometido.
+>
+>Honestamente no tome ninguna captura en el proceso de realizacion del codigo puesto que eran casi las 12 y tenia demasiado sueño, en otras palabras, lo olvide. pero te hare una descripción de como fue mi proceso
+>
+>Primero, decidi crear la nueva explosion, pues es de lo que mas habia referencias para inspirarme. Queria hacer una explosión con contornos de cuadraditos pero no funciono. Pedi ayuda a la IA pero tampoco sirvió. Aquí descarte por completo cualquier uso con IA
+>
+>En este momento, creo que el motivo por el cual no funicionaba es porque siempre usaba la funcion ofDrawRectangle al cual trataba de ponerle ofnoFill y LineWidth y no se modificaba. Considero que debia usar la funcion ofPolyLine y darle la funcion de la figura y la estructura de sus lados
+>
+>Luego, al ver que no funcionaba nada, trate con otra figura, quise un pentagono. pero no encontraba una funcion llamada ofDrawPentagon o parecido, asi que busque en internet y encontre un codigo que fue mi base para crear las particulas. Tras entender como funcionaba el pentagono, lo adapte y estaba lista la explosion
+>
+>Segundo, era momento de crear las particulas. Para ello use un codigo que tenia meisser en su bitacora, donde su particula era un cuadradito que se creaba y rebotaba por los muros hast explotar. me parecia interesante asi que lo use tambien. La primera particula es muy parecida, solo que no se genera cuadritos tan pequeños sino que eran mas medianos y cambiaban de tamaño constantemente. me gusta pensar que da la impresion de que cambia de tamaño tras impactar con los muros.
+>
+>Para la otra particula implemente exactamente lo mismo, pero nuevamente, con un pentagono. Me gusta el contraste porque ahora la particula era particularmente diferente a las otras. Tras esto, decidi cambiar nuevamente la explosion pentagono por una con un heptagono, para que asi fueran figuras diferentes
+
+> <img width="1024" height="768" alt="screenshot_1377" src="https://github.com/user-attachments/assets/5ffd901d-5c51-4c05-af09-b03dba625402" />
+> <img width="1024" height="768" alt="screenshot_1230" src="https://github.com/user-attachments/assets/b54cfbde-1b5c-4fd3-a396-54bdcbe8e362" />
+> <img width="1024" height="768" alt="screenshot_1092" src="https://github.com/user-attachments/assets/86610345-eb8f-4d00-acaf-f56936f67641" />
+> <img width="1024" height="768" alt="screenshot_1024" src="https://github.com/user-attachments/assets/83113bbc-a759-45bf-ab8e-db8a18991d75" />
+> <img width="1024" height="768" alt="screenshot_906" src="https://github.com/user-attachments/assets/4ff4cacc-317d-4788-8acc-3d349b635963" />
+> <img width="1024" height="768" alt="screenshot_886" src="https://github.com/user-attachments/assets/e6480a92-fa1c-442e-bfa6-39a0d979e3de" />
+> <img width="1024" height="768" alt="screenshot_636" src="https://github.com/user-attachments/assets/7fc794a0-07d5-4018-b701-f398ac9bc2ab" />
+> <img width="1024" height="768" alt="screenshot_1665" src="https://github.com/user-attachments/assets/9050a9e0-2c41-45ca-a7a2-203719a4235e" />
+> <img width="1024" height="768" alt="screenshot_1656" src="https://github.com/user-attachments/assets/b6c45e05-ee72-4406-bc70-e0f6a7fe72aa" />
+> <img width="1024" height="768" alt="screenshot_1649" src="https://github.com/user-attachments/assets/72fe7795-51eb-422e-bd70-f8a6fdb13d1b" />
+> <img width="1024" height="768" alt="screenshot_1638" src="https://github.com/user-attachments/assets/7f233f15-72fb-47ae-8c8a-1dc344b84e19" />
+> <img width="1024" height="768" alt="screenshot_1616" src="https://github.com/user-attachments/assets/c08f5fc0-723f-4ba5-8375-f41779fe7c25" />
+> <img width="1024" height="768" alt="screenshot_1471" src="https://github.com/user-attachments/assets/7d1de28f-d802-478a-9d9b-96b485fbe167" />
+
+
 # 4.  **Consolidación, autoevaluación y cierre:** ༓☾∘∙•⋅⋅⊰⋅•⋅**
-> [!CAUTION]
-> Esta sección es OBLIGATORIA y central para tu evaluación
+
+- 🪶**Mi nota propuesta: 4.0** 
+
+- 🦇 **Justificación general**
+> Siento que en esta ocasion me forcé lo que mas pude a evitar el uso de la IA para la realización de las actividades, y solamente implementarla para explicaciones generales de cosas que no entendia tan facilmente. Pero es por ese mismo motivo por el cual siento que mi rendimiento aun no es perfecto. Se que hay otrso compañeros lo suficientemente inteligentes como para lograr entender, encontrar y deducir todo lo que necesitan, y aun no consigo ese resultado.
+> 
+> Tambien me gusto esta unidad porque tuve de vuelta las preguntas para responder ademas de la posibilidad de las rutas. admito que me siento mas tranquila y comoda en un proceso guiado con preguntas pequeñas que ayuda a gente pendejita, como yo, a sentir que estan entendiendo asi sea un poco. aunque me frustro y siempre acabo rindiendome nuevamente con la programacion, estas actividades para mi son como un reinicio, un nuevo intento. Siento que en esta actividad avance un poquito, espero pueda seguir asi en las unidades que siguen
+
+- 🦅 **Mapeo de evidencias según la rúbrica**
+| Criterio                       | Autoevaluación | Justificación / Evidencias |
+|--------------------------------|----------------|-----------------------------|
+| **Profundidad de la Indagación** | Logrado    | Siento que hice lo posible por indagar por mi cuenta e implementar las cosas que encontraba a mi paso. aunque se que hay cosas que aun no entiendo mas especificas como algunas lineas o funciones de los codigos, al igual que el tema de la herencia multiple, siento que hice un buen trabajo investigando lo necesario |
+| **Calidad de la Experimentación** | En desarollo      | Aun me cuesta mucho darle ese toque personal a mis codigos, pues normalmente siempre voy por lo facil. No me considero ser capaz de hacer cosas mas complejas o geniales. No siento tener esa logica de programacion que es necesaria para hacer codigo |
+| **Calidad del análisis y la reflexión** | Logrado     | Reconozco que me gusta jugar mucho con los valores en las lineas de codigo o probar que pasa si borro o pongo una nueva linea con cualquier cosa que siento que puede complementar en algo. En muchas ocasiones esto no servia de nada, pero me ayudaba a  entender que hacian algunas de las funciones y como debia modificarlas, pero otras jamas las entendi |
+| Apropiación y articulación de conceptos** | En desarollo    | La verdad no tuve la mas minima idea de como hacer un dibujo sobre el polimorfismo en tiempo de ejecucion, pero siento que esta unidad me ayudo a aprender los terminos que nunca o cai¿si nunca use en POO.  |
