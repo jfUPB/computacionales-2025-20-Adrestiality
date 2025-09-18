@@ -793,9 +793,13 @@ ofApp::~ofApp() {
 > Tambien me gusto esta unidad porque tuve de vuelta las preguntas para responder ademas de la posibilidad de las rutas. admito que me siento mas tranquila y comoda en un proceso guiado con preguntas pequeñas que ayuda a gente pendejita, como yo, a sentir que estan entendiendo asi sea un poco. aunque me frustro y siempre acabo rindiendome nuevamente con la programacion, estas actividades para mi son como un reinicio, un nuevo intento. Siento que en esta actividad avance un poquito, espero pueda seguir asi en las unidades que siguen
 
 - 🦅 **Mapeo de evidencias según la rúbrica**
+
 | Criterio                       | Autoevaluación | Justificación / Evidencias |
 |--------------------------------|----------------|-----------------------------|
 | **Profundidad de la Indagación** | Logrado    | Siento que hice lo posible por indagar por mi cuenta e implementar las cosas que encontraba a mi paso. aunque se que hay cosas que aun no entiendo mas especificas como algunas lineas o funciones de los codigos, al igual que el tema de la herencia multiple, siento que hice un buen trabajo investigando lo necesario |
 | **Calidad de la Experimentación** | En desarollo      | Aun me cuesta mucho darle ese toque personal a mis codigos, pues normalmente siempre voy por lo facil. No me considero ser capaz de hacer cosas mas complejas o geniales. No siento tener esa logica de programacion que es necesaria para hacer codigo |
 | **Calidad del análisis y la reflexión** | Logrado     | Reconozco que me gusta jugar mucho con los valores en las lineas de codigo o probar que pasa si borro o pongo una nueva linea con cualquier cosa que siento que puede complementar en algo. En muchas ocasiones esto no servia de nada, pero me ayudaba a  entender que hacian algunas de las funciones y como debia modificarlas, pero otras jamas las entendi |
-| Apropiación y articulación de conceptos** | En desarollo    | La verdad no tuve la mas minima idea de como hacer un dibujo sobre el polimorfismo en tiempo de ejecucion, pero siento que esta unidad me ayudo a aprender los terminos que nunca o cai¿si nunca use en POO.  |
+| **Apropiación y articulación de conceptos** | En desarollo    | La verdad no tuve la mas minima idea de como hacer un dibujo sobre el polimorfismo en tiempo de ejecucion, pero siento que esta unidad me ayudo a aprender los terminos que nunca o cai¿si nunca use en POO.  |
+
+
+
