@@ -117,6 +117,7 @@ Luego tenemos una clase que establece la explosion de la particula, que luego da
 >
 > Efectivamente, AJAJ estaba haciendo todo mal, aqui esta el objeto en la memoria
 >
+> <a name="captura1"></a>
 > <img width="601" height="536" alt="image" src="https://github.com/user-attachments/assets/759366d6-22c0-4975-98e3-c03c9fa850b8" />
 ><img width="919" height="289" alt="image" src="https://github.com/user-attachments/assets/44c62583-c3bd-4313-a955-3eaaf70c9286" />
 >
@@ -797,7 +798,7 @@ ofApp::~ofApp() {
 | Criterio                       | Autoevaluación | Justificación / Evidencias |
 |--------------------------------|----------------|-----------------------------|
 | **Profundidad de la Indagación** | Logrado    | Siento que hice lo posible por indagar por mi cuenta e implementar las cosas que encontraba a mi paso. aunque se que hay cosas que aun no entiendo mas especificas como algunas lineas o funciones de los codigos, al igual que el tema de la herencia multiple, siento que hice un buen trabajo investigando lo necesario |
-| **Calidad de la Experimentación** | En desarollo      | Aun me cuesta mucho darle ese toque personal a mis codigos, pues normalmente siempre voy por lo facil. No me considero ser capaz de hacer cosas mas complejas o geniales. No siento tener esa logica de programacion que es necesaria para hacer codigo |
+| **Calidad de la Experimentación** | En desarollo      | Aun me cuesta mucho darle ese toque personal a mis codigos, pues normalmente siempre voy por lo facil. No me considero ser capaz de hacer cosas mas complejas o geniales. No siento tener esa logica de programacion que es necesaria para hacer codigo. Ejemplo del profe: como muestra esta [evidencia](#captura1) |
 | **Calidad del análisis y la reflexión** | Logrado     | Reconozco que me gusta jugar mucho con los valores en las lineas de codigo o probar que pasa si borro o pongo una nueva linea con cualquier cosa que siento que puede complementar en algo. En muchas ocasiones esto no servia de nada, pero me ayudaba a  entender que hacian algunas de las funciones y como debia modificarlas, pero otras jamas las entendi |
 | **Apropiación y articulación de conceptos** | En desarollo    | La verdad no tuve la mas minima idea de como hacer un dibujo sobre el polimorfismo en tiempo de ejecucion, pero siento que esta unidad me ayudo a aprender los terminos que nunca o cai¿si nunca use en POO.  |
 
