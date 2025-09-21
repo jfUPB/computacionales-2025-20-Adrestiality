@@ -1,4 +1,4 @@
-# Rúbrica de evaluación de la unidad | ACTIVIDAD 4
+# Rúbrica de evaluación de la unidad | ACTIVIDAD 7
 
 🔸 **Mi nota propuesta: 4.0**    
 
