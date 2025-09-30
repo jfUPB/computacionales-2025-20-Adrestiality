@@ -1,9 +1,10 @@
 ## 🐔 **ACTIVIDAD 01** 🐔
 
+<a name="evidencia1"></a>
 -  🦢 **¿Cómo puedes interactuar con la aplicación? Menciona específicamente las teclas y qué efecto parecen tener sobre las partículas.**
 
 > La interacción del usuario con el programa se lmita al uso de las teclas EN MINUSCULAS y la ubicación del mouse. Las teclas son las siguientes:
->
+> 
 > **'s'** congela el frame actual de las particulas, por lo que todo queda estático
 > **'a'** atrae las particulas hacia la ubicación del mouse. El mouse puede guiarlas ya que siempre se van a mover hacia su ubicación actual
 > **'r'** repele y aleja las particulas con respecto la unicación del mouse. Tambien aqui dependiendo de la ubicación del mouse se repelan las partículas dejando un trazo vacío
@@ -37,6 +38,7 @@
 
 ## 🐺 **ACTIVIDAD 02** 🐺
 
+<a name="evidencia2"></a>
 - 🦝 **Explica con tus propias palabras el propósito del patrón Observer. ¿Qué problema resuelve?** 🦝
 >
 > Lo que hacemos aquí es hacer que cada una de las partículas se suscriba a un super mega plan que les notifica cada vez que debe haber un cambio en el comportamiento y cada partícula decide como reaccionar
@@ -59,6 +61,7 @@
 
 ## 🦨 **ACTIVIDAD 03** 🦨
 
+<a name="evidencia3"></a>
 - 🦍 **Explica con tus propias palabras el propósito del patrón Factory Method (o Simple Factory, en este caso). ¿Qué problema principal aborda en la creación de objetos?**
 >
 > El factory method es literalmente una especie de plantilla que crea objetos que se van a personalizar más adelante. es decir, todos los objetos tienen unas bases especificas y mas adelante se le dan el resto de especificaciones como cuantas se deben de crear y como se deben aplicar segun el tipo. Es bastante util porque asi se ahorra mucho lo de estar creando clases y herencias innecesarias para crear objetos que son relativamente parecidos entre si, por lo que es muy reutilizable
@@ -67,7 +70,7 @@
 >
 > Particle factory aporta mucha legibilidad en el odigo y agrupa la creación iy configuraciones en un solo lugar sin necesidad de estarlo haceindo repetidamente en cada una de las clases
 
-- 👟 **Imagina que quieres añadir un nuevo tipo de partícula llamada "black_hole" que tiene tamaño grande, color negro y velocidad muy lenta. Describe los pasos que necesitarías seguir para implementar esto utilizando la ParticleFactory existente. ¿Tendrías que modificar ofApp::setup? ¿Por qué sí o por qué no?**
+- 🦡 **Imagina que quieres añadir un nuevo tipo de partícula llamada "black_hole" que tiene tamaño grande, color negro y velocidad muy lenta. Describe los pasos que necesitarías seguir para implementar esto utilizando la ParticleFactory existente. ¿Tendrías que modificar ofApp::setup? ¿Por qué sí o por qué no?**
 >
 > Primero añadimos el tipo de particula black_hole en ParticleFactory::createParticle y le damos color tamaño y velocidad
 >
@@ -79,6 +82,7 @@
 
 ## 🐦‍⬛ **ACTIVIDAD 04** 🐦‍⬛
 
+<a name="evidencia4"></a>
 - 🌑 **Explica con tus propias palabras el propósito del patrón State. ¿Cuándo es útil aplicarlo?**
 >
 > El proposito de esta funcion es basucamente ahorrarnos un monton de if/else ne l codigo y simplemente establecemos estados y variables que nos permitan decidir en ellas
@@ -98,7 +102,17 @@
 >
 > onExit: limpia recursos, detiene animaciones y guarda el estado anterior
 
-## 🐶 **ACTIVIDAD 04** 🐶
+## 🐶 **ACTIVIDAD 05** 🐶
+
+<a name="evidencia5"></a>
+> <img width="1020" height="756" alt="Captura de pantalla 2025-09-30 082907" src="https://github.com/user-attachments/assets/315857a1-9b2f-4f3a-8a78-6ec8339592a0" />
+> <img width="1019" height="764" alt="Captura de pantalla 2025-09-30 082842" src="https://github.com/user-attachments/assets/e24406f1-378a-4542-8d0d-f6a3a626e9cb" />
+> <img width="1020" height="765" alt="Captura de pantalla 2025-09-30 082829" src="https://github.com/user-attachments/assets/0fa946b9-0bf0-438a-bc04-3ddc8204c185" />
+> <img width="1023" height="770" alt="Captura de pantalla 2025-09-30 082815" src="https://github.com/user-attachments/assets/5d163d2f-a1a9-43cb-ab78-598f71a0b0eb" />
+
+
+- 🙈**Código fuente de openframeworks**
+
 ofApp.cpp
 ````c#
 #include "ofApp.h"
@@ -435,3 +449,41 @@ private:
 	std::vector<Particle*> particles;
 };
 ````
+- 🐗**Explica cómo usaste el patrón Factory para esta nueva partícula**
+>
+> En realidad el proceso para crear una nueva partícula consistía en añadirla en el factory, darle4 nombre, tamaño, color y velocidad si era necesario y finalmente añadir el "addObserver" que literalemnte se encargaba de añadirle el resto de cosas que hacían falta
+>
+> De resto solo era necesario añadir la particula nueva con un contador y la cantidad de particulas que queremos que se creen en el setup y ya. El código solitohace el resto
+
+- 🐻**Describe cómo implementaste el patrón Observer para esta nueva partícula**
+>
+> Una vez añadimos el "addObserver" automaticamente la particula nueva se vuelve un nuevo observador, por ende el código lo tendra en cuenta para enviarle notificaciones una vez hayan cambios en los estados
+
+- 🐴**Explica cómo aplicaste el patrón State a esta nueva partícula.**
+>
+> Ahora que nuestra particula es un nuevo observador que esta atento a as notificaciones y sabemos que actuará con respecto a cada una de ellas, el patron state se activa cuando presionamos una nueva tecla, se cambia el estado en el que están las particulas y se les notifica.
+
+## 🫏 **AUTOEVALUACIÓN** 🫏
+
+- 🦭**Mi nota propuesta:** 5
+- 🤺**Justificación:**
+>
+> El estudiante se esfuerza por tratar de entender el funcionamiento básico del programa y sus interacciones con el usuario
+>
+> [evidencia actividad 1](#evidencia1)
+>
+> El estudiante analiza y comprende las facilidades que proporciona el patrón observer, asi como consigue entender su comportamiento
+>
+> [evidencia actividad 2](#evidencia2)
+>
+> El estudiante comprende el funcionamiento del patron factory como corazón principal de la creación de particulas, asi mismo el como el patron factory y el observer se enlazan entre si
+>
+> [evidencia actividad 3](#evidencia3)
+>
+> El estudiante afina sus hipótesis del funcionamiento del patron state gracias al comportamiento de factory y observer, donde comprende finalmente de donde nacen inicialemnte las notficaciones que eventualmente envia el concrete subject a la interfaz de observer
+>
+> [evidencia actividad 4](#evidencia4)
+>
+> El estudiante consgue entender que solamente es necesario hacer que nazca una particula nueva desde el factory, añadirla como obervador y que haga parte del setup, ya que el resto de las cosas el código consigue hacerlas por su cuenta grcias a sus comportamientos y automatización
+>
+> [evidencia actividad 5](#evidencia5)
