@@ -26,29 +26,80 @@
 
 ## 🌟**ACTIVIDAD 02**🌟
 
-- ✨ **Necesito que hagas digestión de esta información y que la entiendas. Para ello te voy a pedir un resumen en tus propias palabras de lo que acabas de leer. En tu resumen debes tratar de conectar GLFW, opengl32.lib, GLAD, GLM y los drivers de la GPU. ¿Qué rol cumple cada uno? ¿Cómo se relacionan entre sí? Mira, trata de hacer esto de memoria y como si estuvieras contándole a un amigo que quiere aprender OpenGL. Cuando haces el proceso de memoria tu cerebro hace un esfuerzo adicional y eso te ayuda a aprender. Además, si no recuerdas algo quiere decir que no lo entendiste bien y eso es una buena señal para que vuelvas a leerlo**
+- ✨ **En tu resumen debes tratar de conectar GLFW, opengl32.lib, GLAD, GLM y los drivers de la GPU. ¿Qué rol cumple cada uno? ¿Cómo se relacionan entre sí?**
 >
-> 000
+> Para poder crear un proyecto en OpenGL es necesario agregar elementos externos, lo cuales son las dependencias del proyecto. Entre estas hay dos librerías que son fundamentales para OpenGL las cuales son GLFW y GLAD, además en este caso también se descargo una biblioteca llamada GLM (ya voy a explicar estas tres). Para incluirlas simplemente hay que agregar una carpeta dentro de el proyecto, la cual va a contener subcarpetas con la información descargada.
+>
+> **GLFW:**
+>
+> Biblioteca multiplataforma que que permite crear las ventanas y eventos de entrada, tales como las del teclado o mouse
+>
+> **Opengl32.lib:**
+>
+> Es una biblioteca incluida en Windows que permite iniciar cualquier programa en opengl
+>
+> **GLAD:**
+>
+> Biblioteca con funciones de openGL y permite acceder a ellas en tiempo de ejecución
+>
+> **GML:**
+>
+> Biblioteca matemática para gráficos vectoriales, matrices y transformaciones que consiste en un solo código fuente
+>
+> **Drivers GPU:**
+>
+> Software que sirve como puente entre el sistema operativo y las aplicaciones se comuniquen con la tarjeta gráfica de la computadora
 
 ## 🌟**ACTIVIDAD 03**🌟
 
 **═∘◦✧◦∘═ 🔅PARTE 1🔅 ═∘◦✧◦∘═**
 
-- ✨ **Qué tal si ensayas. Prueba con esta línea**
->
-> 000
-
-- ✨ **¿Qué pasa si?**
->
-> 000
-
 - ✨ **Cambia los valores de bufferWidth y bufferHeight: divide por 2, por 4, multiplica por 2, por 4, etc. ¿Qué pasa? ¿Qué observas? ¿Qué crees que está pasando?**
 >
-> 000
+> Cuando dividimos por 2 pasa esto:
+>
+> <img width="416" height="449" alt="image" src="https://github.com/user-attachments/assets/c4c3e980-a5bb-44ee-a2c7-cb91aa109132" />
+>
+> Cuando dividimos por 4 pasa esto:
+>
+> <img width="425" height="455" alt="image" src="https://github.com/user-attachments/assets/f1cdc4b9-ebc6-4783-bc2c-af33f21cf898" />
+>
+> Cuando multiplicamos por 2 pasa esto:
+>
+> <img width="394" height="432" alt="image" src="https://github.com/user-attachments/assets/f1916f0e-c7eb-4809-8be8-7847a1ec7c50" />
+
+>
+> Cuando multiplicamos por 4 pasa esto: (Aunque se ve muy igual a la anterior)
+>
+> <img width="404" height="434" alt="image" src="https://github.com/user-attachments/assets/652fbb4e-97f1-48ff-b14c-40bf58487acd" />
+>
+> Aquí es donde vemos reflejada la relacion entre la ventana y el framebuffer...
+> El framebuffer es la hoja original en donde dibujamos con la gpu, y la ventana es una especie de proyección. La línea que modificamos es respecto al tamaño del buffer, y claro, se distorsiona lo que vemos en la proyección de la ventana 
 
 - ✨ **Entonces hagamos “digestión”: en tu bitácora, escribe un resumen de lo que has aprendido hasta ahora y piensa en un experimento del tipo ¿Qué pasaría si?**
 >
-> 000
+> Perfecto, hagamos un resumen
+>
+> Hasta ahora en este punto hemos visto que para poder iniciar algo en OpenGL necesitamos ciertas dependencia que contienen bibliotecas necesarias para poder crear no solo los contextos para poder dibujar, sino tambien para la creacion de las ventanas y eventos con este. Adicionalmente ahora tenemos el concepto muy interesante del framebuffer y la ventana. El frameBuffer es un lienzo imaginario donde la GPU dibuja tras recibir las instrucciones de OpenGL, y este lienzo se proyecta en la ventana que creamos
+>
+> Ahora, hagamos un experimento
+>
+> Hace un momento modificamos el FrameBuffer, pero, ¿Qué tal si modificamos la ventana?
+>
+> para ello, puse la cambié línea:
+```
+const unsigned int SCR_WIDTH = 400;
+const unsigned int SCR_HEIGHT = 400;
+```
+```
+const unsigned int SCR_WIDTH = 300;
+const unsigned int SCR_HEIGHT = 250;
+````
+> sucede esto
+> 
+> <img width="249" height="437" alt="image" src="https://github.com/user-attachments/assets/a8092944-7c76-4374-b141-c1eb3e94d9c3" />
+>
+> Tambien se distorciona la imagen
 
 - ✨ **¿Qué pasa si cambias el primer parámetro de glDrawArrays a GL_LINES? ¿Qué pasa si lo cambias a GL_POINTS? ¿Qué pasa si cambias el tercer parámetro a 2? ¿Qué pasa si lo cambias a 4?**
 >
