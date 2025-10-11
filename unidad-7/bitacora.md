@@ -67,7 +67,6 @@
 > Cuando multiplicamos por 2 pasa esto:
 >
 > <img width="394" height="432" alt="image" src="https://github.com/user-attachments/assets/f1916f0e-c7eb-4809-8be8-7847a1ec7c50" />
-
 >
 > Cuando multiplicamos por 4 pasa esto: (Aunque se ve muy igual a la anterior)
 >
@@ -124,7 +123,6 @@ const unsigned int SCR_HEIGHT = 250;
 > La funcion línea parece funcionar con minimo 2 vertices, por lo que tambien creo que ignora el excedente de dichos vertices
 >
 > De resto, la funcion punto parece que si funciona con cualquier cantidad de vertice... solo que seria genial hacerlos mas grandes
-
 
 - ✨ **¿Qué es el contexto OpenGL?**
 >
@@ -196,8 +194,18 @@ Reforzando la idea de que basta con que los Shaders apliquen una sola vez en est
 > La función se encarga de intercambiar el buffer trasero por el delantero asegurando una imagen fluida 
 >
 > Si no se llama hipotéticamente deberían suceder parpadeos... Veamos que pasa si quitamos la línea:
+
+> [!WARNING]
+> NOTA: NUNCA EN SUS VIDAS QUITEN ESA LÍNEA SI NO QUIEREN 10 MINUTOS DE ESTRES Y SI NO QUIEREN CONDENAR EL BIENESTAR DE LA BITÁCORA POR NO HABERLE HECHO COMIT ANTES DE DE HACER EL EXPERIMENTO. JAMAAAAAAAAAAS LO HAGAN, JAMAAAAAS
+
 >
-> 
+> Fue una experiencia horrible. Crei que retirar la línea solo afectaría la mera ventana con el triangulo y el como se actualizaba a medida que agrandabas la ventana.. PERO NO. TODO EL COMPUTADOR ENTRÓ EN CRISIS EXISTENCIAL Y SE PARALIZÓ POR 10 MINUTOS. Ya no recibia los datos del teclado (Como el impr pant para tratar de tomar captura  o el esc cuando trate de cerrar la ventana), mouse iba re lento y le costó mucho tomar los clicks...
+>
+> En conclusión, si, la funcion glfwSwapBuffers(mainWindow); es la mas importante para el bienestar de todos...
+>
+> Esta fue la foto que pude tomar ya que las capturas no servían:
+>
+> ![Imagen de WhatsApp 2025-10-10 a las 23 35 14_f74754b3](https://github.com/user-attachments/assets/f8c721aa-706a-4ac9-8e7d-c2ebd64263d1)
 
 ## 🌟**ACTIVIDAD 04**🌟
 
@@ -209,19 +217,41 @@ Reforzando la idea de que basta con que los Shaders apliquen una sola vez en est
 
 - ✨ **¿Cuáles son los tres pasos claves del pipeline de OpenGL? Explica en tus propias palabras cuál es el objetivo de cada paso**
 >
-> 00
+> - Vertex shading
+> 
+> Se encarga de calcular todo lo necesario en la escena 
+Cada uno de los objetivos, sus caras y vértices, al igual que la información de cada una de las caras traducidas en píxeles y aplica los colores en RGB y carga sus texturas 
+Además de que para ahorrar recursos, calcula las distancias de cada objeto, de modo en que solo renderiza las cosas que estén al frente y que sean visibles desde la perspectiva de la cámara 
+>
+> Es decir, calcula todo lo 3D a 2D
+>
+> - Rasterization 
+> Se encarga de optimizar al máximo el plano 2D creado por el Vertex shading y aplicarle correctamente los colores, también como asegurarse de que no se hagan las texturas traseras innecesarias que no se vean en ese momento en el modelo
+>
+> - Fragment shading 
+Esta se encarga del cálculo de la posición de las normales (hacia que lado están mirando las caras de la malla de polígonos) para así establecer el rango de color que se debe aplicar. En otras palabras, si la cara en ese contexto en específico debe ir muy claro porque le está dando toda la luz o muy oscuro porque está en las sombras, haciendo escenas mucho más realistas
 
 - ✨ **La gran novedad que introduce OpenGL moderno es el pipeline programable. ¿Qué significa esto? ¿Qué diferencia hay entre el pipeline fijo y el programable? ¿Qué ventajas le ves a esto? y si el pipeline es programable, ¿Qué tengo que programar?**
 >
-> 00
+> La novedad del pipeline programable es que ciertas etapas del pipeline de renderizado, que antes estaban fijas y controladas por hardware, ahora se pueden personalizar con los Shaders
+>
+> La diferencia entre el pipeline fijo y el programable, es que en el fijo sus etapas son predefinidas con un control demasiado limitado. Mientras que con el pipeline programable es que puedes crear Shaders para las estampas más importantes, como la transformación de píxeles y su coloración. Facilitando la creación de gráficos complejos 
+> 
+> Las ventajas principales están en que ofrecen mayor flexibilidad y rendimiento, volviéndose un estándar de la industria 
+>
+> Y lo que se debe programar principalmente es el Vertex shader, el Fragment shading y la Rasterization
 
 - ✨ **Si fueras a describir el proceso de rasterización ¿Qué dirías?**
 >
-> 00
+> es el encargado de la optimización de los colores y elimina lo innecesario a la vista de la cámara
+>
+> también divide las imágenes en fragmentos que a su vez están divididos por pixeles
 
 - ✨ **¿Qué son los fragmentos? ¿Es lo mismo un fragmento que un pixel? ¿Por qué?**
 >
-> 00
+> No son lo mismo, los fragmentos contienen pixeles
+>
+> los fragmentos son conjuntos que forman triángulos, estos triángulos dividen cada parte de las imágenes que serán visibles al final, y son estos los que ayudan a optimizar el proceso, ya que en lugar de pensar en billones de pixeles ahora pensamos en millones de fragmentos
 
 - ✨ **Explica qué problema resuelve el Z-buffer y ¿Qué es el depth test?**
 >
@@ -229,15 +259,22 @@ Reforzando la idea de que basta con que los Shaders apliquen una sola vez en est
 
 - ✨ **¿Por qué se presenta el problema de la aliasing? ¿Qué es el anti-aliasing?**
 >
-> 00
+> El Aliaing es un caso en el que las aristas de los fragmentos interceptan a los píxeles por la mitad lo que genera que se vea irregular la forma. Es por esto que existe el anti-aliaing, que divide los píxeles con 16 puntos distintos y dependiendo de cuántos puntos se ven cubiertos será el valor del color que se encuentran en el Pixel.
+>
+> Es por eso que muchas veces los píxeles las orillas suelen ser más transparentes.
 
 - ✨ **¿Qué relación hay entre la iluminación y el fragment shader? Siempre es necesario tener en cuenta la iluminación en un fragment shader? o puedo hacer un fragment shader sin iluminación? Explica que implicaciones tiene esto**
 >
-> 00
+> El Fragment shading es el encargado de calcular el color final de cada píxel basándose en diferentes factores como la iluminación 
+>
+> No es obligatorio llevar iluminación si lo que se desea es simular colores planos (cosa poco común). De resto es necesario para darle profundidad al objeto 
+>
+> La principal implicación de no ponerle la luz es que se vea un color plano cutre y también podría afectar a como percibimos las texturas ya que muchas dependen de la posición de la luz para que se vean
 
 - ✨ **¿Qué implica para la GPU que una aplicación tenga múltiples fuentes de iluminación?**
 >
-> 00
+> 
+el hecho de que un programa tenga múltiples iluminaciones, requiere de que se generen miles de cálculos instantáneos para poder variar la tonalidad de cada una de las caras que conforman el fragmento de modelo visible a la cámara
 
 - ✨ **Implementa el código anterior en tu máquina y captura pantalla del resultado. Pero antes de hacerlo trata de predecir qué va a pasar.**
 >
