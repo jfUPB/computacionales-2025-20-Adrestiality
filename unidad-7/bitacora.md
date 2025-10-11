@@ -225,11 +225,13 @@ Además de que para ahorrar recursos, calcula las distancias de cada objeto, de 
 >
 > Es decir, calcula todo lo 3D a 2D
 >
-> - Rasterization 
+> - Rasterization
+> 
 > Se encarga de optimizar al máximo el plano 2D creado por el Vertex shading y aplicarle correctamente los colores, también como asegurarse de que no se hagan las texturas traseras innecesarias que no se vean en ese momento en el modelo
 >
-> - Fragment shading 
-Esta se encarga del cálculo de la posición de las normales (hacia que lado están mirando las caras de la malla de polígonos) para así establecer el rango de color que se debe aplicar. En otras palabras, si la cara en ese contexto en específico debe ir muy claro porque le está dando toda la luz o muy oscuro porque está en las sombras, haciendo escenas mucho más realistas
+> - Fragment shading
+> 
+> Esta se encarga del cálculo de la posición de las normales (hacia que lado están mirando las caras de la malla de polígonos) para así establecer el rango de color que se debe aplicar. En otras palabras, si la cara en ese contexto en específico debe ir muy claro porque le está dando toda la luz o muy oscuro porque está en las sombras, haciendo escenas mucho más realistas
 
 - ✨ **La gran novedad que introduce OpenGL moderno es el pipeline programable. ¿Qué significa esto? ¿Qué diferencia hay entre el pipeline fijo y el programable? ¿Qué ventajas le ves a esto? y si el pipeline es programable, ¿Qué tengo que programar?**
 >
@@ -255,7 +257,7 @@ Esta se encarga del cálculo de la posición de las normales (hacia que lado est
 
 - ✨ **Explica qué problema resuelve el Z-buffer y ¿Qué es el depth test?**
 >
-> 00
+> El Z-BUFFER es el encargado de la profundidad. Es gracias a este que se identifican cuáles píxeles se encuentran más lejos desde la perspectiva de la cámara, eso es lo que permite que se vean principalmente los elementos más cercanos a la cámara.
 
 - ✨ **¿Por qué se presenta el problema de la aliasing? ¿Qué es el anti-aliasing?**
 >
@@ -273,12 +275,258 @@ Esta se encarga del cálculo de la posición de las normales (hacia que lado est
 
 - ✨ **¿Qué implica para la GPU que una aplicación tenga múltiples fuentes de iluminación?**
 >
-> 
-el hecho de que un programa tenga múltiples iluminaciones, requiere de que se generen miles de cálculos instantáneos para poder variar la tonalidad de cada una de las caras que conforman el fragmento de modelo visible a la cámara
+> el hecho de que un programa tenga múltiples iluminaciones, requiere de que se generen miles de cálculos instantáneos para poder variar la tonalidad de cada una de las caras que conforman el fragmento de modelo visible a la cámara
+
+- ✨ **Escribe un resumen en tus propias palabras de lo que se necesita para dibujar un triángulo en OpenGL.**
+>
+> Inicialmente necesitamos los objetos (El VAO, VBO y los Shaders) que están identificados con ID único para mayor practicidad. 
+>
+> Luego, necesitamos los datos de los vértices que le permite al computador comprender la ubicación exacta de lo que queremos hacer. 
+>
+> Después necesitamos los buffers que encapsula la información de los vértices y se hace binding. 
+>
+> También debemos indicar cómo están organizados los datos de los vértices con una función glVertexAttribPointer y un glEnanbleVertexAtribArray para activar sus atributos 
+>
+> Luego necesitamos el Vertex shader que proceda la posición de cada vértice y un fragment shader que define el color de cada píxel 
+>
+> Finalmente con glDrawArrays dibujar la figuras, pidiendo que se unan los 3 vértices para crear un triángulo
+
+- ✨ **Escribe un resumen en tus propias palabras de lo que necesitas para poder usar un shader en OpenGL.**
+>
+> Los shaders son programas que se ejecutan en la GPU y esos procesan los vértices y los fragmentos. Para este ejemplo entonces se crea en el objeto una función que contiene el programa de los shaders. Y a está función se le agrega un ID gracias al celi es que se puede llamar más tarde en otros momentos dentro del programa.
+>
+> Entonces por este caso primero llamaba el shader de los vértices para verificar los errores, y después decía lo mismo con fragmentos. Eso con la intención de ver primero lo más sencillo y luego ir hacia lo más complejo. 
+>
+> Cuando te verifique que no hay ningún problema con los shaders simplemente se eliminan porque ya no son necesarios. Es decir, en realidad son una guía sin embargo no se elimina el objeto que contenía la información de los shaders, qué es el encargado de ejecutarlos en la Gpu
+>
+> Ahora podemos ver cada shader por separado: los de vértices reciben los datos de dos puntos respecto a su posición y lo convierte en un vector con esa información. En ese caso lo podés ver como el componente w lo asigna siempre como un 1 para que todas las coordenadas sean homogéneas. Después de lo que se ve esta como información debe traducirse a la pantalla en el viewport.
+>
+> Un paso importante en esta parte es establecer una localización para el Buffer de los atributos (o su espacio de memoria) que permite más tarde vincular los vértices al Buffer de vertices
+>
+> Ahora el shader de los fragmentos, es el encargado del color, que en este caso es un color fijo naranja que se establece con un vector de 4 componentes del RGBA
 
 - ✨ **Implementa el código anterior en tu máquina y captura pantalla del resultado. Pero antes de hacerlo trata de predecir qué va a pasar.**
 >
-> 00
+> EXPECTATIVA: dado que ahora vamos a ingresar 3 shaders... espero al menos 3 triángulos? pero no se que más esperar
+>
+> CÓDIGO:
+```
+#include <iostream>
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
+
+// Callback: ajusta el viewport cuando cambie el tamaño de la ventana
+void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
+	glViewport(0, 0, width, height);
+}
+
+// Procesa entrada simple: cierra con ESC
+void processInput(GLFWwindow* window) {
+	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+		glfwSetWindowShouldClose(window, true);
+}
+
+// Tamaño de ventana
+const unsigned int SCR_WIDTH = 400;
+const unsigned int SCR_HEIGHT = 400;
+
+// --- SHADERS DE VÉRTICE ---
+
+// Shader A: usa posición
+const char* vertexShaderSrcA = R"glsl(
+    #version 460 core
+    layout(location = 0) in vec3 aPos;
+    void main() {
+        gl_Position = vec4(aPos, 1.0);
+    }
+)glsl";
+
+// Shader B: usa color como posición “falsa”
+const char* vertexShaderSrcB = R"glsl(
+    #version 460 core
+    layout(location = 1) in vec3 aColor;
+    void main() {
+        gl_Position = vec4(aColor * 0.5, 1.0);
+    }
+)glsl";
+
+// Shader C: usa offset
+const char* vertexShaderSrcC = R"glsl(
+    #version 460 core
+    layout(location = 2) in vec2 aOffset;
+    void main() {
+        gl_Position = vec4(aOffset, 0.0, 1.0);
+    }
+)glsl";
+
+// Fragment shader (mismo para los tres)
+const char* fragmentShaderSrc = R"glsl(
+    #version 460 core
+    out vec4 FragColor;
+    void main() {
+        FragColor = vec4(1.0, 0.5, 0.2, 1.0);
+    }
+)glsl";
+
+// --- IDs globales ---
+GLuint VAO, VBO;
+GLuint shaderA, shaderB, shaderC;
+
+// Función para compilar un programa shader completo (vertex + fragment)
+unsigned int buildShaderProgram(const char* vtxSrc, const char* fragSrc) {
+	int success;
+	char log[512];
+
+	unsigned int vs = glCreateShader(GL_VERTEX_SHADER);
+	glShaderSource(vs, 1, &vtxSrc, nullptr);
+	glCompileShader(vs);
+	glGetShaderiv(vs, GL_COMPILE_STATUS, &success);
+	if (!success) {
+		glGetShaderInfoLog(vs, 512, nullptr, log);
+		std::cerr << "ERROR VERTEX SHADER:\n" << log << "\n";
+	}
+
+	unsigned int fs = glCreateShader(GL_FRAGMENT_SHADER);
+	glShaderSource(fs, 1, &fragSrc, nullptr);
+	glCompileShader(fs);
+	glGetShaderiv(fs, GL_COMPILE_STATUS, &success);
+	if (!success) {
+		glGetShaderInfoLog(fs, 512, nullptr, log);
+		std::cerr << "ERROR FRAGMENT SHADER:\n" << log << "\n";
+	}
+
+	unsigned int prog = glCreateProgram();
+	glAttachShader(prog, vs);
+	glAttachShader(prog, fs);
+	glLinkProgram(prog);
+	glGetProgramiv(prog, GL_LINK_STATUS, &success);
+	if (!success) {
+		glGetProgramInfoLog(prog, 512, nullptr, log);
+		std::cerr << "ERROR LINKING PROGRAM:\n" << log << "\n";
+	}
+
+	glDeleteShader(vs);
+	glDeleteShader(fs);
+	return prog;
+}
+
+
+void setupBuffers() {
+	float vertices[] = {
+		//   pos            color           offset
+		-1.0f, -1.0f, 0.0f,   0.0f, 0.0f, 0.0f,   0.1f, 0.5f,
+		 0.0f, -1.0f, 0.0f,   1.0f, 0.0f, 0.0f,   0.2f, 0.5f,
+		-0.5f, -0.5f, 0.0f,   0.5f, 0.5f, 0.0f,   0.15f, 0.75f
+	};
+
+	glGenVertexArrays(1, &VAO);
+	glGenBuffers(1, &VBO);
+
+	glBindVertexArray(VAO);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(0));
+	glEnableVertexAttribArray(0);
+
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
+	glEnableVertexAttribArray(1);
+
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+	glEnableVertexAttribArray(2);
+
+	glBindVertexArray(0);
+}
+
+
+int main()
+{
+	// 1) Inicializar GLFW
+	if (!glfwInit()) {
+		std::cerr << "Fallo al inicializar GLFW\n";
+		return -1;
+	}
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+	// 2) Crear ventana
+	GLFWwindow* mainWindow = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Tres Shaders", nullptr, nullptr);
+	if (!mainWindow) {
+		std::cerr << "Error creando ventana\n";
+		glfwTerminate();
+		return -1;
+	}
+
+	glfwMakeContextCurrent(mainWindow);
+	glfwSetFramebufferSizeCallback(mainWindow, framebuffer_size_callback);
+
+	// 3) Cargar GLAD
+	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
+		std::cerr << "Fallo al cargar GLAD\n";
+		return -1;
+	}
+
+	glfwSwapInterval(1); // V-Sync
+
+	// 4) Compilar los tres programas
+	shaderA = buildShaderProgram(vertexShaderSrcA, fragmentShaderSrc);
+	shaderB = buildShaderProgram(vertexShaderSrcB, fragmentShaderSrc);
+	shaderC = buildShaderProgram(vertexShaderSrcC, fragmentShaderSrc);
+
+	// 5) Configurar buffers
+	setupBuffers();
+
+	// 6) Loop principal
+	while (!glfwWindowShouldClose(mainWindow))
+	{
+		processInput(mainWindow);
+		glfwPollEvents();
+
+		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT);
+
+		glBindVertexArray(VAO);
+
+
+		glUseProgram(shaderA);
+		glEnableVertexAttribArray(0);
+		glDisableVertexAttribArray(1);
+		glDisableVertexAttribArray(2);
+		glDrawArrays(GL_TRIANGLES, 0, 3);
+
+
+		glUseProgram(shaderB);
+		glDisableVertexAttribArray(0);
+		glEnableVertexAttribArray(1);
+		glDisableVertexAttribArray(2);
+		glDrawArrays(GL_TRIANGLES, 0, 3);
+
+
+		glUseProgram(shaderC);
+		glDisableVertexAttribArray(0);
+		glDisableVertexAttribArray(1);
+		glEnableVertexAttribArray(2);
+		glDrawArrays(GL_TRIANGLES, 0, 3);
+
+		glfwSwapBuffers(mainWindow);
+	}
+
+	// Limpieza
+	glDeleteVertexArrays(1, &VAO);
+	glDeleteBuffers(1, &VBO);
+	glDeleteProgram(shaderA);
+	glDeleteProgram(shaderB);
+	glDeleteProgram(shaderC);
+	glfwDestroyWindow(mainWindow);
+	glfwTerminate();
+
+	return 0;
+}
+```
+> RESULTADO:
+>
+> <img width="425" height="457" alt="image" src="https://github.com/user-attachments/assets/95fd8a08-3499-48fd-9580-52839a17c887" />
 
 ## 🌟**ACTIVIDAD 05**🌟
 
