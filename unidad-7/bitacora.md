@@ -213,7 +213,9 @@ Reforzando la idea de que basta con que los Shaders apliquen una sola vez en est
 
 - ✨ **Luego de estudiar las unidades 1 y 2 de este curso y ver el video, escribe con tus propias palabras ¿Cuál es la diferencia entre una CPU y una GPU?**
 >
-> 000
+> La CPU actúa como el cerebro del computador, siendo un procesador que lidia con las tareas básicas de este y el funcionamiento del sistema 
+>
+> No obstante, la GPU es un procesador de ejecución masiva. Es decir, el adecuado para las tareas específicamente pesadas. Por eso es que es necesario tener GPUs potentes para los juegos o programas 3D, porque requieren de miles de cálculos en tiempo real para si correcta ejecución
 
 - ✨ **¿Cuáles son los tres pasos claves del pipeline de OpenGL? Explica en tus propias palabras cuál es el objetivo de cada paso**
 >
