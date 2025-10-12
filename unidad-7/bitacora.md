@@ -12,6 +12,7 @@
 
 - ✨ **¿Qué preguntas te surgen al ver el código?. Anota al menos tres preguntas que te gustaría investigar más adelante (no te preocupes que la idea de esta unidad es que las resuelvas)**
 >
+> <a name="evidencia1"></a>
 > En realidad son muchas preguntgas, dado a que no entiendo la gran mayoria de terminos que hay.. No se que es VAO, VBO; shaderProg..
 >
 > Ni siquiera entiendo si unsigned es un tipo de variable porque jamas la habia escuchado.
@@ -28,6 +29,7 @@
 
 - ✨ **En tu resumen debes tratar de conectar GLFW, opengl32.lib, GLAD, GLM y los drivers de la GPU. ¿Qué rol cumple cada uno? ¿Cómo se relacionan entre sí?**
 >
+> <a name="evidencia2"></a>
 > Para poder crear un proyecto en OpenGL es necesario agregar elementos externos, lo cuales son las dependencias del proyecto. Entre estas hay dos librerías que son fundamentales para OpenGL las cuales son GLFW y GLAD, además en este caso también se descargo una biblioteca llamada GLM (ya voy a explicar estas tres). Para incluirlas simplemente hay que agregar una carpeta dentro de el proyecto, la cual va a contener subcarpetas con la información descargada.
 >
 > **GLFW:**
@@ -56,6 +58,7 @@
 
 - ✨ **Cambia los valores de bufferWidth y bufferHeight: divide por 2, por 4, multiplica por 2, por 4, etc. ¿Qué pasa? ¿Qué observas? ¿Qué crees que está pasando?**
 >
+> 
 > Cuando dividimos por 2 pasa esto:
 >
 > <img width="416" height="449" alt="image" src="https://github.com/user-attachments/assets/c4c3e980-a5bb-44ee-a2c7-cb91aa109132" />
@@ -195,6 +198,7 @@ Reforzando la idea de que basta con que los Shaders apliquen una sola vez en est
 >
 > Si no se llama hipotéticamente deberían suceder parpadeos... Veamos que pasa si quitamos la línea:
 
+<a name="evidencia3"></a>
 > [!WARNING]
 > NOTA: NUNCA EN SUS VIDAS QUITEN ESA LÍNEA SI NO QUIEREN 10 MINUTOS DE ESTRES Y SI NO QUIEREN CONDENAR EL BIENESTAR DE LA BITÁCORA POR NO HABERLE HECHO COMIT ANTES DE DE HACER EL EXPERIMENTO. JAMAAAAAAAAAAS LO HAGAN, JAMAAAAAS
 
@@ -213,6 +217,7 @@ Reforzando la idea de que basta con que los Shaders apliquen una sola vez en est
 
 - ✨ **Luego de estudiar las unidades 1 y 2 de este curso y ver el video, escribe con tus propias palabras ¿Cuál es la diferencia entre una CPU y una GPU?**
 >
+> <a name="evidencia4"></a>
 > La CPU actúa como el cerebro del computador, siendo un procesador que lidia con las tareas básicas de este y el funcionamiento del sistema 
 >
 > No obstante, la GPU es un procesador de ejecución masiva. Es decir, el adecuado para las tareas específicamente pesadas. Por eso es que es necesario tener GPUs potentes para los juegos o programas 3D, porque requieren de miles de cálculos en tiempo real para si correcta ejecución
@@ -533,7 +538,7 @@ int main()
 ## 🌟**ACTIVIDAD 05**🌟
 
 - ✨ **Modifica el código del triángulo para que sea interactivo.**
->
+
 ```c++
 #include <iostream>
 #include <glad/glad.h>
@@ -751,6 +756,7 @@ int main()
 ```
 - ✨ **Incluye una captura de pantalla del triángulo interactivo funcionando en tu máquina.**
 >
+> <a name="evidencia5"></a>
 > <img width="399" height="391" alt="Captura de pantalla 2025-10-11 023137" src="https://github.com/user-attachments/assets/17ab73ce-b32b-4afe-a2a1-8368bad312f2" />
 > <img width="402" height="432" alt="Captura de pantalla 2025-10-11 023151" src="https://github.com/user-attachments/assets/3fed625e-bd00-445e-80d0-6f5b96c11d1f" />
 > <img width="399" height="404" alt="Captura de pantalla 2025-10-11 023143" src="https://github.com/user-attachments/assets/d7446328-7fb9-49ad-9039-7d4e1c990260" />
@@ -1045,23 +1051,28 @@ int main()
 - ✨ **MI NOTA PROPUESTA:5.0**
 - ✨ **DEFENSA:**
 
+ACTIVIDAD 1
 > El estudiante descarga y abre el proyecto, a su vez que genera preguntas ante el nuevo codigo proximo a analizar
-<a name="evidencia1"></a>
+>
 > [evidencia actividad 1](#evidencia1)
 
+ACTIVIDAD 2
 > El estudiante consigue crear exitosamente un nuevo archivo desde 0, teniendo en cuenta las dependencias necesarias y el por que son importantes
-<a name="evidencia2"></a>
+>
 > [evidencia actividad 2](#evidencia2)
 
-> El estudiante experimenta con los valores en las diferentes líneas de código, comprendiendo, aunque de manera minima, el uncionamiento de algunas funciones y el por que de sus parametros y asi mismo, realiza un resumen rapido de lo aprendido
-<a name="evidencia3"></a>
+ACTIVIDAD 3
+> El estudiante continua experimentando con otras funciones que se encargan de darle vida y forma al triangulo, asi como tambien responde las preguntas y pone en riesgo el bienestar de su computador asi como el de la bitacora que estas leyendo para generar hipotesis y realizar experimentos respecto al funcionamiento de los buffers
+> 
 > [evidencia actividad 3](#evidencia3)
 
-> El estudiante continua experimentando con otras funciones que se encargan de darle vida y forma al triangulo, asi como tambien responde las preguntas y pone en riesgo el bienestar de su computador asi como el de la bitacora que estas leyendo para generar hipotesis y realizar experimentos respecto al funcionamiento de los buffers
-<a name="evidencia4"></a>
+ACTIVIDAD 4
+> El estudiante experimenta con los valores en las diferentes líneas de código, comprendiendo, aunque de manera minima, el uncionamiento de algunas funciones y el por que de sus parametros y asi mismo, realiza un resumen rapido de lo aprendido
+>
 > [evidencia actividad 4](#evidencia4)
 
+ACTIVIDAD 5
 > El estudiante analiza como el proceso aprendido hasta ese punto es realmente un feflejo en su minima expreion del proceso en gran escala que deben de llevar a cabo los computadores para cargar programas que demandan demasiada gpu, asi como tambien experimenta con los shaders
-<a name="evidencia5"></a>
+>
 > [evidencia actividad 5](#evidencia5)
 
