@@ -1045,5 +1045,23 @@ int main()
 - ✨ **MI NOTA PROPUESTA:5.0**
 - ✨ **DEFENSA:**
 
+> El estudiante descarga y abre el proyecto, a su vez que genera preguntas ante el nuevo codigo proximo a analizar
+<a name="evidencia1"></a>
+> [evidencia actividad 1](#evidencia1)
 
+> El estudiante consigue crear exitosamente un nuevo archivo desde 0, teniendo en cuenta las dependencias necesarias y el por que son importantes
+<a name="evidencia2"></a>
+> [evidencia actividad 2](#evidencia2)
+
+> El estudiante experimenta con los valores en las diferentes líneas de código, comprendiendo, aunque de manera minima, el uncionamiento de algunas funciones y el por que de sus parametros y asi mismo, realiza un resumen rapido de lo aprendido
+<a name="evidencia3"></a>
+> [evidencia actividad 3](#evidencia3)
+
+> El estudiante continua experimentando con otras funciones que se encargan de darle vida y forma al triangulo, asi como tambien responde las preguntas y pone en riesgo el bienestar de su computador asi como el de la bitacora que estas leyendo para generar hipotesis y realizar experimentos respecto al funcionamiento de los buffers
+<a name="evidencia4"></a>
+> [evidencia actividad 4](#evidencia4)
+
+> El estudiante analiza como el proceso aprendido hasta ese punto es realmente un feflejo en su minima expreion del proceso en gran escala que deben de llevar a cabo los computadores para cargar programas que demandan demasiada gpu, asi como tambien experimenta con los shaders
+<a name="evidencia5"></a>
+> [evidencia actividad 5](#evidencia5)
 
