@@ -312,7 +312,7 @@ Además de que para ahorrar recursos, calcula las distancias de cada objeto, de 
 > EXPECTATIVA: dado que ahora vamos a ingresar 3 shaders... espero al menos 3 triángulos? pero no se que más esperar
 >
 > CÓDIGO:
-```
+```c++
 #include <iostream>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -751,8 +751,6 @@ int main()
 ```
 - ✨ **Incluye una captura de pantalla del triángulo interactivo funcionando en tu máquina.**
 >
-> CÓDIGO 1
->
 > <img width="399" height="391" alt="Captura de pantalla 2025-10-11 023137" src="https://github.com/user-attachments/assets/17ab73ce-b32b-4afe-a2a1-8368bad312f2" />
 > <img width="402" height="432" alt="Captura de pantalla 2025-10-11 023151" src="https://github.com/user-attachments/assets/3fed625e-bd00-445e-80d0-6f5b96c11d1f" />
 > <img width="399" height="404" alt="Captura de pantalla 2025-10-11 023143" src="https://github.com/user-attachments/assets/d7446328-7fb9-49ad-9039-7d4e1c990260" />
@@ -779,26 +777,273 @@ Aquí, x es de izquierda a derecha, y de abajo a arriba y z de cerca a lejos
 
 - ✨ **Describe brevemente los cambios que realizaste en el código C++ (dónde obtienes el tiempo, cómo y dónde actualizas el uniform)**
 >
-> 00
+> Los primeros cambios se situan en el FragmentShader, aqui decidi añadir 3 uniforms, uno para el tiempo y otros dos para dos colores
+>
+> Luego, inspirandome en la actividad 5, cree un void main() donde establecía la variable factor (que usa el tiempo) como la operación que habia en el enunciado (sin(time) + 1.0) / 2.0, y luego un una variable finalColor que se encargaba de interpolar los 3 colores (Color1 ,Color2 y Factor) y finalmente el FragColor
+>
+> Luego nos vamos a situar en el int main() justo antes del loop, entre el paso 9 y 10 comentadas. En el glUseProgram(shaderProg) añadi unas variables encargadas de loclizar los 3 uniforms en el shader y que estos se usen
+>
+> Y ahí mismo, pero más abajito, defino que la localizción del color 1 y 2, que asi mismo son los uniformes que corresponden al color 1 y 2, tengan cierto color. Escojí un rojo y un azul, ya que en el ejercicio pasado usabamos amarillos y naranjas
+>
+> Finalmente, dentro del loop principal, debajp del paso 14 comentado, puse la variable TimeValue con la función glfwGetTime(); del ejercicio, y debajo la linea que se encarga de hacer que el tiempo se pase al shader
+>
+> y yap :)
 
 - ✨ **Pega el código modificado de tu fragment shader**
 >
-> 00
+> Mira mi fragment shader, aunque de igual modo te pegaré todo mi codigo más adelante
+```c++
+const char* fragmentShaderSrc = R"glsl(
+    #version 460 core
+	out vec4 FragColor;
+
+	uniform float time;
+	uniform vec3 color1;
+	uniform vec3 color2;
+
+	void main() {
+		
+        float factor = (sin(time) + 1.0) / 2.0;
+        vec3 finalColor = mix(color1, color2, factor);
+        FragColor = vec4(finalColor, 1.0);
+    }
+)glsl";
+```
+>
+> Mira todo mi codigo aqui porque tambien modifique el main
+```c++
+#include <iostream>
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
+
+
+// Callback: ajusta el viewport cuando cambie el tamaño de la ventana
+void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
+	glViewport(0, 0, width, height);
+}
+
+// Procesa entrada simple: cierra con ESC
+void processInput(GLFWwindow* window) {
+	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+		glfwSetWindowShouldClose(window, true);
+}
+
+// Tamaño de las ventanas
+const unsigned int SCR_WIDTH = 400;
+const unsigned int SCR_HEIGHT = 400;
+
+// Fuentes de los shaders
+const char* vertexShaderSrc = R"glsl(
+    #version 460 core
+    layout(location = 0) in vec3 aPos;
+    void main() {
+        gl_Position = vec4(aPos, 1.0);
+    }
+)glsl";
+
+const char* fragmentShaderSrc = R"glsl(
+    #version 460 core
+	out vec4 FragColor;
+
+	uniform float time;
+	uniform vec3 color1;
+	uniform vec3 color2;
+
+	void main() {
+		
+        float factor = (sin(time) + 1.0) / 2.0;
+        vec3 finalColor = mix(color1, color2, factor);
+        FragColor = vec4(finalColor, 1.0);
+    }
+)glsl";
+
+// IDs globales
+unsigned int VAO, VBO;
+unsigned int shaderProg;
+
+// Compila y linkea un programa de shaders, retorna su ID
+unsigned int buildShaderProgram() {
+	int success;
+	char log[512];
+
+	unsigned int vs = glCreateShader(GL_VERTEX_SHADER);
+	glShaderSource(vs, 1, &vertexShaderSrc, nullptr);
+	glCompileShader(vs);
+	glGetShaderiv(vs, GL_COMPILE_STATUS, &success);
+	if (!success) {
+		glGetShaderInfoLog(vs, 512, nullptr, log);
+		std::cerr << "ERROR VERTEX SHADER:\n" << log << "\n";
+	}
+
+	unsigned int fs = glCreateShader(GL_FRAGMENT_SHADER);
+	glShaderSource(fs, 1, &fragmentShaderSrc, nullptr);
+	glCompileShader(fs);
+	glGetShaderiv(fs, GL_COMPILE_STATUS, &success);
+	if (!success) {
+		glGetShaderInfoLog(fs, 512, nullptr, log);
+		std::cerr << "ERROR FRAGMENT SHADER:\n" << log << "\n";
+	}
+
+	unsigned int prog = glCreateProgram();
+	glAttachShader(prog, vs);
+	glAttachShader(prog, fs);
+	glLinkProgram(prog);
+	glGetProgramiv(prog, GL_LINK_STATUS, &success);
+	if (!success) {
+		glGetProgramInfoLog(prog, 512, nullptr, log);
+		std::cerr << "ERROR LINKING PROGRAM:\n" << log << "\n";
+	}
+
+	glDeleteShader(vs);
+	glDeleteShader(fs);
+	return prog;
+}
+
+// Crea un VAO/VBO con los datos de un triángulo
+void setupTriangle() {
+	float vertices[] = {
+		-0.5f, -0.5f, 0.0f,
+		 0.5f, -0.5f, 0.0f,
+		 0.0f,  0.5f, 0.0f
+	};
+	glGenVertexArrays(1, &VAO);
+	glGenBuffers(1, &VBO);
+
+	glBindVertexArray(VAO);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+	glEnableVertexAttribArray(0);
+	glBindVertexArray(0);
+}
+
+
+int main()
+{
+	// 1) Inicializar GLFW
+	if (!glfwInit()) {
+		std::cerr << "Fallo al inicializar GLFW\n";
+		return -1;
+	}
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+	// 2) Crear ventana
+	GLFWwindow* mainWindow = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Ventana", nullptr, nullptr);
+	if (!mainWindow) {
+		std::cerr << "Error creando ventana1\n";
+		glfwTerminate();
+		return -1;
+	}
+
+	// 3) Lee el tamaño del framebuffer
+	int bufferWidth, bufferHeight;
+	glfwGetFramebufferSize(mainWindow, &bufferWidth, &bufferHeight);
+	
+	// 4) Callbacks 
+	glfwSetFramebufferSizeCallback(mainWindow, framebuffer_size_callback);
+
+
+	// 5) Cargar GLAD y recursos en contexto de window1
+	glfwMakeContextCurrent(mainWindow);
+
+	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
+		std::cerr << "Fallo al cargar GLAD (contexto1)\n";
+		return -1;
+	}
+
+	// 6) Habilita el V-Sync
+	glfwSwapInterval(1);
+
+	// 7) Compila y linkea shaders
+	shaderProg = buildShaderProgram();
+
+	// 8) Genera el contenido a mostrar
+	setupTriangle();
+
+	// 9) Configura el viewport
+	glViewport(0, 0, bufferWidth, bufferHeight);
+
+	glUseProgram(shaderProg);
+	int timeLoc = glGetUniformLocation(shaderProg, "time");
+	int color1Loc = glGetUniformLocation(shaderProg, "color1");
+	int color2Loc = glGetUniformLocation(shaderProg, "color2");
+
+	glUniform3f(color1Loc, 1.0f, 0.0f, 0.0f); // un ruper mega rojo
+	glUniform3f(color2Loc, 0.0f, 0.0f, 1.0f); // un super mega azul
+
+	// 10) Loop principal
+	while (!glfwWindowShouldClose(mainWindow))
+	{
+		// 11) Manejo de eventos
+		glfwPollEvents();
+
+	
+		// 12) Procesa la entrada
+		processInput(mainWindow);
+
+		// 13) Configura el color de fondo y limpia el framebuffer
+		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT);
+		
+		// 14) Indica a OpenGL que use el shader program
+		glUseProgram(shaderProg);
+
+		float timeValue = glfwGetTime();
+		glUniform1f(timeLoc, timeValue);
+
+
+		// 15) Activa el VAO y dibuja el triángulo
+		glBindVertexArray(VAO);
+		glDrawArrays(GL_TRIANGLES, 0, 3);
+
+		// 16) Intercambia buffers y muestra el contenido
+		glfwSwapBuffers(mainWindow);
+	}
+
+	// 17) Limpieza
+	glfwMakeContextCurrent(mainWindow);
+	glDeleteVertexArrays(1, &VAO);
+	glDeleteBuffers(1, &VBO);
+	glDeleteProgram(shaderProg);
+
+	glfwDestroyWindow(mainWindow);
+	glfwTerminate();
+	return 0;
+}
+```
 
 - ✨ **Explica cómo usaste la función de tiempo (sin, cos, u otra) para lograr el efecto de cambio de color cíclico. ¿Qué rango de valores produce tu cálculo y cómo afecta eso al color final?**
 >
-> 00
+> La función del tiempo es incorporada dentro del loop principal, luego en el fragment shader incorpore el tiempo con una operación de seno, lo cual definia valores entre 1 y 0 y daba un efecto de degrade desde el color 1 al color 2 gracias al mix
 
 - ✨ **Incluye una captura de pantalla o UN ENLACE a un video mostrando el resultado del triángulo con color cambiante**
 >
-> 00
+> > <img width="403" height="439" alt="Captura de pantalla 2025-10-12 130509" src="https://github.com/user-attachments/assets/87fa8e05-cc82-4ac6-8ea8-add65d247881" />
+>
+> <img width="420" height="437" alt="Captura de pantalla 2025-10-12 130533" src="https://github.com/user-attachments/assets/8e428161-2d16-4a5d-9210-4316105a36eb" />
+>
+> <img width="396" height="434" alt="Captura de pantalla 2025-10-12 130457" src="https://github.com/user-attachments/assets/baf33c76-e24c-4ec3-a4f4-36247af4ba51" />
+>
+> <img width="403" height="437" alt="Captura de pantalla 2025-10-12 130501" src="https://github.com/user-attachments/assets/b55776a3-71da-418a-a1bd-2c168c391bb6" />
+>
+> <img width="410" height="453" alt="Captura de pantalla 2025-10-12 130516" src="https://github.com/user-attachments/assets/54270b4f-f326-48eb-896d-ecae7fe04647" />
+>
+> <img width="409" height="433" alt="Captura de pantalla 2025-10-12 130453" src="https://github.com/user-attachments/assets/ccd4b83e-f57c-4dd7-a8b8-9b245003fa0b" />
+>
+> <img width="395" height="417" alt="Captura de pantalla 2025-10-12 130523" src="https://github.com/user-attachments/assets/c440cc8c-bedb-4d99-a0d4-7080626c7a23" />
+>
+> <img width="410" height="437" alt="Captura de pantalla 2025-10-12 130505" src="https://github.com/user-attachments/assets/f2bddcb9-bf1d-4564-89bc-bf0ce1ebc627" />
 
 - ✨ **Reflexión: ¿Qué otros efectos visuales simples podrías lograr usando el tiempo como uniform? Piensa en la posición, el tamaño o la rotación (aunque no hemos visto rotaciones formalmente, ¡intuitivamente podrías intentarlo!). Anota al menos una idea.**
 >
-> 00
+> No se si exista la posibilidad, pero si gracias a una operacion con el tiempo y un mix podiamos hacer una interpolacion de colores, quizas exista la manera de que se pueda crear una interpolacion de numeros y cambiar los valores de las coordenadas, de modo en que podamos hacer que el triangulo pase a ser equilátero, isósceles o escaleno
 
 ## 🌟**AUTOEVALUACIÓN**🌟
 
-- ✨ **MI NOTA PROPUESTA:0.0**
+- ✨ **MI NOTA PROPUESTA:5.0**
 - ✨ **DEFENSA:**
+
+
 
