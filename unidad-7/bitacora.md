@@ -756,7 +756,7 @@ int main()
 ```
 - ✨ **Incluye una captura de pantalla del triángulo interactivo funcionando en tu máquina.**
 >
-> <a name="evidencia5"></a>
+<a name="evidencia5"></a>
 > <img width="399" height="391" alt="Captura de pantalla 2025-10-11 023137" src="https://github.com/user-attachments/assets/17ab73ce-b32b-4afe-a2a1-8368bad312f2" />
 > <img width="402" height="432" alt="Captura de pantalla 2025-10-11 023151" src="https://github.com/user-attachments/assets/3fed625e-bd00-445e-80d0-6f5b96c11d1f" />
 > <img width="399" height="404" alt="Captura de pantalla 2025-10-11 023143" src="https://github.com/user-attachments/assets/d7446328-7fb9-49ad-9039-7d4e1c990260" />
@@ -1025,8 +1025,9 @@ int main()
 > La función del tiempo es incorporada dentro del loop principal, luego en el fragment shader incorpore el tiempo con una operación de seno, lo cual definia valores entre 1 y 0 y daba un efecto de degrade desde el color 1 al color 2 gracias al mix
 
 - ✨ **Incluye una captura de pantalla o UN ENLACE a un video mostrando el resultado del triángulo con color cambiante**
->
-> > <img width="403" height="439" alt="Captura de pantalla 2025-10-12 130509" src="https://github.com/user-attachments/assets/87fa8e05-cc82-4ac6-8ea8-add65d247881" />
+
+<a name="evidencia6"></a>
+> <img width="403" height="439" alt="Captura de pantalla 2025-10-12 130509" src="https://github.com/user-attachments/assets/87fa8e05-cc82-4ac6-8ea8-add65d247881" />
 >
 > <img width="420" height="437" alt="Captura de pantalla 2025-10-12 130533" src="https://github.com/user-attachments/assets/8e428161-2d16-4a5d-9210-4316105a36eb" />
 >
@@ -1076,3 +1077,7 @@ ACTIVIDAD 5
 >
 > [evidencia actividad 5](#evidencia5)
 
+ACTIVIDAD 6
+> El estudiante analiza como el proceso aprendido hasta ese punto es realmente un feflejo en su minima expreion del proceso en gran escala que deben de llevar a cabo los computadores para cargar programas que demandan demasiada gpu, asi como tambien experimenta con los shaders
+>
+> [evidencia actividad 6](#evidencia6)
