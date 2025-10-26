@@ -5,15 +5,23 @@
 
 - 🐡 **Ejecuta el programa y haz clic en la ventana. Observa lo que sucede. ¿Qué es lo que ves? ¿Qué es lo que esperabas ver? ¿Por qué crees que sucede esto?**
 >
-> 00
+> No me abre nada... La verdad me asuste bastante cuando vi el error de compilacion. genuinamente desconozco el motivo... la variable mas extraña es la que dice "heavyComputation"...
 
 - 🐡 **Ejecuta el programa y haz clic en la ventana. Observa lo que sucede. ¿Qué es lo que ves? ¿Qué es lo que esperabas ver? ¿Por qué crees que sucede esto?**
 >
-> 00
+> En algunas líneas del codigo sale cosas relacionados a circulos... por lo que esperaba un circulo enorme o algo asi... pero... Sigue saliendo error y no se que haceeeer
+>
+> <img width="444" height="168" alt="image" src="https://github.com/user-attachments/assets/730a3ad0-959a-4642-9c47-8f10781a126b" />
+>
+> Al parecer hay un error en esta linea del ofApp.h
+>
+> <img width="264" height="28" alt="image" src="https://github.com/user-attachments/assets/891bb90e-b20b-441f-b087-cd102a578d30" />
 
 - 🐡 **Explica en tus propias palabras ¿Cómo puede presentarse la condición de carrera en este caso? ¿Qué es lo que está pasando? Te pido que propongas un ejemplo.**
 >
-> 00
+> CONCURRENCIA: son muchas tareas que se hacen al mismo tiempo y en el mismo lugar... es como si un equipo de enanos ser encargara de hacer 100 regalos a la vez
+>
+> PARALELISMO: son muchas tareas que se hacen al mismo tiempo pero en diferentes lugares... como si 10 equipos de 2 enanitos hicieran 100 regalos en total. donde cada uno de los 10 equipos se encarga de hacer de a 10 regalos
 
 ## 🦐 ACTIVIDAD 2
 
