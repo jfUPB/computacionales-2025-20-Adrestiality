@@ -172,17 +172,24 @@ Ambos van igual de lentos, lo cual es bastante curioso, esperaba que fuese mas r
 
 - 🐡 **Notaste que la versión con hilos tiene un sleep(5) en el hilo trabajador. ¿Por qué crees que se ha añadido? ¿Qué pasaría si lo eliminamos?**
 >
-> 00
+> hicimos el experimento de eliminar el sleep(5), lo que sucedio es que todo se ralentizo de manera increible. por ende, creo que la funcion del sleep es filtrar y hacer que toda la informacion vaya en una filita para que se procese una por una y no todas a la vez
 
 - 🐡 **Compara el rendimiento de ambos enfoques. ¿Cuál crees que es más eficiente? ¿Por qué?**
 >
-> 00
+> hmm... depende de por donde veamos el lado de la eficiencia
+>
+>ambos codigos tuvieron una capacidad de respuesta casi igual y se sobrecargaban casi con el mismo nivel de informacion
+>
+>por ende, si la eficiencia va desde el sentido del programador y del codigo, la primera version con un solo hilo es la mas indicada, ya que contiene menos lineas y cosas diferentes que programar.
+>
+> pero si la eficiencia va por el lado del pc entonces la segunda es la mejor dado a que hay una amplia distribucion de las gtareas y hay mas constrol
+
 - 🐡 **¿Qué pasaría si no se usaran? ¿Cómo afectaría esto al comportamiento del programa? (No olvides por favor que las condiciones de carrera son difíciles de reproducir, así que no te preocupes si no puedes verlas en acción)**
 >
-> 00
+> Pasaria lo mismo que uno de los ejercicios con el circulo. la informacion vendria pormontones y no se podriaq leer en orden, por lo que si tenemos una escala del 1 al 10, se leerian los datos a lazar ya que estarian sobrepuestos uno sobre el otro. En este ejemplo de aqui probablemente la posicion de cada particula sera completamente aleatoria cada vez que pueda cargar si quiera
 
 - 🐡 **¿Qué ocurre si mientras el hilo trabajador está calculando el movimiento de los boids, el hilo principal intenta añadir un nuevo boid? ¿Se congelará la aplicación? ¿Por qué?**
 >
-> 00
+> Aqui es mas de lo mismo, el hilo trabajador leeria la informacion del ultimo boid que habia antes de la actualizacion del otro.. por lo que leeria un dato erroneo y sin actualzar. asi que la posicion que procesaria estaria erronea
 
 ## 🦐 ACTIVIDAD 5
