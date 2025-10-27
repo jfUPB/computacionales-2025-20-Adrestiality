@@ -1,6 +1,4 @@
 # Bitácora de aprendizaje de la unidad 8
-🦐
-
 ## 🦐 ACTIVIDAD 1
 
 - 🐡 **Ejecuta el programa y haz clic en la ventana. Observa lo que sucede. ¿Qué es lo que ves? ¿Qué es lo que esperabas ver? ¿Por qué crees que sucede esto?**
@@ -111,45 +109,71 @@ lock();
 - 🐡 **¿Qué ocurre si cambias el número de hilos? ¿Por qué crees que ocurre esto?**
 >
 > Dado a que no puedo aumentar el numero de hilos dada las limitaciones del computador, trate de disminuirlos. Lo mas probable es que se haga un pelin mas lento el calculo
+>
+> ![Imagen de WhatsApp 2025-10-26 a las 22 06 09_143e3c22](https://github.com/user-attachments/assets/5ed883c8-640d-4043-8f5c-39615c95b1bb)
+>
+> En efecto, el tiempo auemnto cuando baje los hilos de 16 a 11
 
 ## 🦐 ACTIVIDAD 4
 
+primero veamos lo que salio de amnos codigos
+
+SIN HILOS:
+![Imagen de WhatsApp 2025-10-26 a las 22 18 16_08fdb90b](https://github.com/user-attachments/assets/a05d8bda-be5a-4ff9-80ca-64dc11ad9dbc)
+
+CON HILOS:
+![Imagen de WhatsApp 2025-10-26 a las 22 21 08_ce484593](https://github.com/user-attachments/assets/07b42f99-8744-46e4-bb98-a7adab629144)
+
+Ambos van igual de lentos, lo cual es bastante curioso, esperaba que fuese mas rapido con todos los hilos
+
 - 🐡 **¿Cuál es la estructura de datos principal que contiene la información de todos los boids y que es accedida por múltiples hilos (el hilo principal para dibujar, el hilo trabajador para actualizar)?**
 >
-> 000
+> la estructura de datos principal con la informacion es un vector llamado boids que almacena la informacion de todos los boid y es por el cual se accede por medio de los hilos
+
 - 🐡 **Observa la función Flock::threadedFunction() donde el hilo trabajador calcula el movimiento. ¿Qué operaciones realizan sobre el vector de boids compartido?**
 >
-> 000
+> La operacion que realiza es lo que hablabamos hace un momento de bloquer y desbloquear el acceso y edicion de dicha informacion compartida
+
 - 🐡 **Observa la función ofApp::draw(). ¿Qué operación realiza sobre el vector compartido?**
 >
-> 000
+>  esta funcion primero bloquea el vector y luego dibuja o que se encuentre en el flock para poderdespues desbloquer el vector y que usen otros hilos
+
 - 🐡 **Observa Flock::addBoid() y ofApp::mouseDragged(). ¿Qué operación realizan?**
 >
-> 000
+> la funcion Flock::addBoid() basicamente le añade nuevos boids a el vector usando como referencia la posicion del mouse, para que despues la funcion fApp::mouseDragged() active esta funcion y aparescan nuevos boids al arrastrar el mouse 
+
 - 🐡 **Describe un escenario específico y concreto donde la falta de sincronización podría causar un problema**
 >
-> 000
+> Creo que aqui seria lo mismo con el tema de las condiciones de carrera, habria un error ahi. ya que el hilo x esta leyendo el boid que ya hay mientras que se esta creando otro y lee lo que no es. Aqui incluso podriamos volover con el ejemplo del juego de las personitas sumando numeros progresivamente
+
 - 🐡 **Localiza todas las llamadas a lock() y unlock() dentro de la clase Flock (o donde se acceda al vector compartido)**
 >
-> 000
-- 🐡 **Justificación: para uno de los escenarios problemáticos que describiste arriba, explica cómo las llamadas a lock()/unlock() en las secciones de código relevantes evitan que ocurra ese problema específico**
+> el lock y unlock se llama en tres lugares diferentes...
 >
-> 000
+> En el addBoid, en el draw, threadedFunction
+
 - 🐡 **¿Puedes intuir por qué tener muchos hilos esperando para adquirir un lock sobre el mismo vector (alta contención) podría limitar el beneficio de rendimiento del paralelismo en este caso? Justifica tu respuesta**
 >
-> 000
+> cuando es aplicado el paralelismo a esta clase de programas con el fin de aumentar su eficiencia, la idea es que la información fluya mas rapido, sin embarg, locks impiden el flujo por un momento por lo que el proceso vuelve a ser lento asi que lo vuelve un poco contradictorio con la idea inicial
+
 - 🐡 **¿Qué pasaría si tuviéramos varios hilos que calculan el movimiento de los boids? ¿Cómo podrías implementar esto? ¿Qué problemas crees que podrían surgir? ¿Cómo podrías solucionarlos?**
 >
-> 00
+> si se utilizaran otros hilos para hacer calculos de la posicion, los problemas serian muy similares a los que se veian en los ejemplos anteriores donde era necesario agregarle blosqueos a la informacion para evitar los problemas de eficiencia, pero asi mismo, con los bloqueos surge el problema de que disminuye la velocidad con la que se ejecuta el programa, pero en estos casos ya no se prioriza la velocidad... tal y como el ejemplo de la simulacion de poblaciones... con hilos o sin hilos, no habia demasiado cambio
+
 - 🐡 **Analiza el código del Flocking sin hilos y el Flocking con hilos. ¿Qué diferencias encuentras? ¿Por qué crees que es importante la sincronización en el segundo caso?**
 >
-> 00
+> al revisar ambos codigos, las principales diferencias que se evidenciaron son la de la falta de bloqueos en el primer codigo, que es el que no tiene hilos, ya que no hay probabilidades de que hayan desfaces de la informacion y que se altere el programa, mientras que el segundo si las tiene.
+>
+> La segunda diferencia es que cuando se usan hilos hay varias funciones encargadas de que los propios hilos inicien su ejecucion, esperen al otro y finalicen sus funciones
+
 - 🐡 **¿Por qué al añadir un nuevo boid la simulación se ralentiza? ¿Qué ocurre si añades muchos boids?**
 >
-> 00
+> Añadir mas boids implica aumentar la cantidad de informacion que hay en el vector, por lo que son mas cosas para procesar, haciendo que se ralentice
+
 - 🐡 **Notaste que la versión con hilos tiene un sleep(5) en el hilo trabajador. ¿Por qué crees que se ha añadido? ¿Qué pasaría si lo eliminamos?**
 >
 > 00
+
 - 🐡 **Compara el rendimiento de ambos enfoques. ¿Cuál crees que es más eficiente? ¿Por qué?**
 >
 > 00
