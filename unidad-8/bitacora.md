@@ -194,12 +194,12 @@ Ambos van igual de lentos, lo cual es bastante curioso, esperaba que fuese mas r
 
 ## 🦐 ACTIVIDAD 5
 
+.h
 ```
 #pragma once
 
 #include "ofMain.h"
 #include "ofThread.h"
-
 
 class MandelbrotThread : public ofThread {
 public:
@@ -210,7 +210,7 @@ public:
 		, imgHeight(height)
 		, maxIterations(maxIter)
 		, pixels(pixelsRef)
-		, vecK (juliaK) {
+		, vecK(juliaK) {
 	}
 
 	void threadedFunction() override {
@@ -234,9 +234,9 @@ private:
 	int calculateMandelbrotPixel(int x, int y) {
 		//float cx = ofMap(x, 0, imgWidth, -2.0, 1.0);
 		//float cy = ofMap(y, 0, imgHeight, -1.5, 1.5);
-		
-		float zx = ofMap(x, 0, imgWidth, -2.0, 1.0),
-		float zy = ofMap(y, 0, imgHeight, -1.5, 1.5);
+
+		float zx = ofMap(x, 0, imgWidth, -2.0, 1.0);
+			  float zy = ofMap(y, 0, imgHeight, -1.5, 1.5);
 		int iterations = 0;
 		while (zx * zx + zy * zy < 4.0 && iterations < maxIterations) {
 			float tempX = zx * zx - zy * zy + vecK.x;
@@ -247,8 +247,7 @@ private:
 		return iterations;
 	}
 
-	ofColor mapIterationsToColor(int iterations)
-	{
+	ofColor mapIterationsToColor(int iterations) {
 		if (iterations == maxIterations)
 			return ofColor::black;
 		else {
@@ -268,8 +267,8 @@ public:
 	void draw();
 	void exit();
 	void keyPressed(int key);
-
 	void startCalculation();
+	void mouseMoved(int x, int y, int button);
 
 	ofPixels pixels;
 	ofTexture texture;
@@ -287,8 +286,9 @@ public:
 	string statusMessage;
 	int runningThreads;
 };
-```
 
+```
+.cpp
 ```
 #include "ofApp.h"
 #include <thread>
@@ -297,7 +297,6 @@ glm::vec2 juliaK;
 
 //--------------------------------------------------------------
 void ofApp::setup() {
-
 
 	ofSetWindowTitle("Mandelbrot Paralelo (ofThread)");
 	ofSetFrameRate(60);
@@ -361,7 +360,6 @@ void ofApp::startCalculation() {
 //--------------------------------------------------------------
 void ofApp::update() {
 
-	
 	juliaK.x = ofMap(mouseX, 0, imgWidth, -1.5f, 1.5f);
 	juliaK.y = ofMap(mouseY, 0, imgHeight, -1.5f, 1.5f);
 
@@ -435,4 +433,14 @@ void ofApp::keyPressed(int key) {
 		startCalculation();
 	}
 }
+
+void ofApp::mouseDragged(int x, int y, int button) {
+	if (maxIterations += 1) {
+
+		startCalculation();
+		
+	}
+
+}
+
 ````
