@@ -16,13 +16,14 @@
 
 - 🐡 **Ejecuta el programa y haz clic en la ventana. Observa lo que sucede. ¿Qué es lo que ves? ¿Qué es lo que esperabas ver? ¿Por qué crees que sucede esto?**
 >
+><a name="evidencia1"></a>
 > <img width="786" height="412" alt="Captura de pantalla 2025-10-26 202534" src="https://github.com/user-attachments/assets/73ba70bc-e777-4256-b5dc-9ce2006fe3d8" />
 > <img width="826" height="430" alt="Captura de pantalla 2025-10-26 202549" src="https://github.com/user-attachments/assets/a5003dac-d013-41d6-b0c0-c182157dd2c2" />
 >
 > Aqui en este nuevo codigo lo que hicimos fue crear hilos para las dos tareas diferentes que hay. un hilo se encarga de calcular el tamaño del nuevo circulo y el otro se encarga de mantener la animacion de este. Ya no se congela como antes
 
 - 🐡 **Explica en tus propias palabras ¿Cómo puede presentarse la condición de carrera en este caso? ¿Qué es lo que está pasando? Te pido que propongas un ejemplo.**
-> 
+>
 > - CONCURRENCIA: Esto quiere decir que hay multiples tareas en cadena necesarias para cumplir un onjetivo o las diferentes fases para llegar a una meta. Es como hacer un pastel, primero mezclas los ingredientes, horneas, decoras...
 >
 > - PARALELISMO: Esto quiere decir que hya multiples tareas separadas que pueden ser realizadas por diferentes "personas" como las partes de un platillo. la preparación de la ensalada, la proteina, las bebidas... son cosas que se hacen por separado, como si fuesen independientes unas de otras
@@ -45,6 +46,7 @@ lock();
 
 - 🐡 **Ejecuta el código y observa el resultado. ¿Qué ocurre si cambias el valor de la variable useLock? ¿Por qué crees que ocurre esto?**
 >
+> <a name="evidencia2"></a>
 > ![Imagen de WhatsApp 2025-10-26 a las 21 17 07_09ebfde2](https://github.com/user-attachments/assets/71dcc35b-a408-4cc2-a3a7-8af03692545e)
 > ![Imagen de WhatsApp 2025-10-26 a las 21 17 25_c56b85a4](https://github.com/user-attachments/assets/7b5e6d78-4dd3-4f5d-8396-4078b0713ef0)
 >
@@ -93,6 +95,7 @@ lock();
 > sucede esto son las iteraciones
 >
 > - Iteraciones en 40:
+<a name="evidencia3"></a>
 > ![Imagen de WhatsApp 2025-10-26 a las 21 50 06_8927c970](https://github.com/user-attachments/assets/c1e9ce0e-dac9-425a-a764-501910dd6316)
 >
 > - Iteraciones en 10:
@@ -122,6 +125,7 @@ SIN HILOS:
 ![Imagen de WhatsApp 2025-10-26 a las 22 18 16_08fdb90b](https://github.com/user-attachments/assets/a05d8bda-be5a-4ff9-80ca-64dc11ad9dbc)
 
 CON HILOS:
+<a name="evidencia4"></a>
 ![Imagen de WhatsApp 2025-10-26 a las 22 21 08_ce484593](https://github.com/user-attachments/assets/07b42f99-8744-46e4-bb98-a7adab629144)
 
 Ambos van igual de lentos, lo cual es bastante curioso, esperaba que fuese mas rapido con todos los hilos
@@ -492,7 +496,8 @@ void ofApp::mouseDragged(int x, int y, int button) {
 > La parte del codigo encargada del mouse es esta. Es una funcion simple que llama al calculo constantemente. Crei que iba a tener que ponerle mas cosas, pero funciono asi. MiYa en pantalla, mientaras tienes presionado el espacio, la posicion se actualiza con el mouse
 
 - 🐡 **Incluye al menos dos capturas de pantalla que muestren diferentes fractales de Julia generados al mover el mouse en tu aplicación.**
->
+
+<a name="evidencia5"></a>
 <img width="1029" height="771" alt="Captura de pantalla 2025-10-28 222550" src="https://github.com/user-attachments/assets/31ce6b42-a5d9-4176-bd63-103a50edffef" />
 <img width="1029" height="771" alt="Captura de pantalla 2025-10-28 222619" src="https://github.com/user-attachments/assets/3c7537aa-a46e-4f3b-bb1f-72c53f0aae7a" />
 <img width="1027" height="766" alt="Captura de pantalla 2025-10-28 222608" src="https://github.com/user-attachments/assets/75595c40-1a2e-43b4-bbd5-40ed4494efb1" />
@@ -503,3 +508,28 @@ void ofApp::mouseDragged(int x, int y, int button) {
 > En realidad el trabajo era una bobada increible. Simplemente no estabamos seguras de por donde empezar ni como segurarnos de que todo estuviera conectado. Eso ignorando de que se me olvido como leer y comparar AJAJAJ
 >
 > Pero una vez medio entendiamos como iba la cosa, se logro... solo habian quedado una pendejadita de errores de ortografía por ahi sueltos
+
+## 🦐 AUTOEVALUACION
+
+- 🐡 **NOTA PROPUESTA: 5.0**
+- 🐡 **DEFENSA**
+
+ACTIVIDAD 01
+El estudiante ejecuta los codigos base y entiende el concepto base de un hilo y la importancia de sus usos para la distribucion de tareas
+[evidencia actividad 1](#evidencia1)
+
+ACTIVIDAD 02
+El estudiante analiza a profundidad la condicion de carrera y sus caracteristicas
+[evidencia actividad 1](#evidencia2)
+
+ACTIVIDAD 03
+El estudiante analiza las ecuaciones de mandelbrot y experimenta con el codigo para modificar su previsualización
+[evidencia actividad 1](#evidencia3)
+
+ACTIVIDAD 04
+El estudiante estudia los comportamientos de los boids y flocks
+[evidencia actividad 1](#evidencia4)
+
+ACTIVIDAD 05
+El estudiante modifica las ecuaciones de mandelbort para convertirlas en julia y que se acualice con la posicion del mouse
+[evidencia actividad 1](#evidencia5)
