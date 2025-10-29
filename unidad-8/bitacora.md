@@ -194,7 +194,9 @@ Ambos van igual de lentos, lo cual es bastante curioso, esperaba que fuese mas r
 
 ## 🦐 ACTIVIDAD 5
 
-.h
+- 🐡 **Pega la parte clave de tu función modificada que calcula el píxel para el conjunto de Julia. Recuerda utilizar un bloque cpp.**
+
+ofApp.h
 ```
 #pragma once
 
@@ -203,7 +205,7 @@ Ambos van igual de lentos, lo cual es bastante curioso, esperaba que fuese mas r
 
 class MandelbrotThread : public ofThread {
 public:
-	MandelbrotThread(int startY, int endY, int width, int height, int maxIter, ofPixels & pixelsRef, glm::vec2 juliaK)
+	MandelbrotThread(int startY, int endY, int width, int height, int maxIter, ofPixels& pixelsRef, glm::vec2 juliaK)
 		: startRow(startY)
 		, endRow(endY)
 		, imgWidth(width)
@@ -228,7 +230,7 @@ private:
 	int startRow, endRow;
 	int imgWidth, imgHeight;
 	int maxIterations;
-	ofPixels & pixels;
+	ofPixels& pixels;
 	glm::vec2 vecK;
 
 	int calculateMandelbrotPixel(int x, int y) {
@@ -236,7 +238,7 @@ private:
 		//float cy = ofMap(y, 0, imgHeight, -1.5, 1.5);
 
 		float zx = ofMap(x, 0, imgWidth, -2.0, 1.0);
-			  float zy = ofMap(y, 0, imgHeight, -1.5, 1.5);
+		float zy = ofMap(y, 0, imgHeight, -1.5, 1.5);
 		int iterations = 0;
 		while (zx * zx + zy * zy < 4.0 && iterations < maxIterations) {
 			float tempX = zx * zx - zy * zy + vecK.x;
@@ -268,7 +270,7 @@ public:
 	void exit();
 	void keyPressed(int key);
 	void startCalculation();
-	void mouseMoved(int x, int y, int button);
+	void mouseDragged(int x, int y, int button);
 
 	ofPixels pixels;
 	ofTexture texture;
@@ -278,7 +280,7 @@ public:
 	int maxIterations;
 	int numThreads;
 
-	vector<MandelbrotThread *> threads;
+	vector<MandelbrotThread*> threads;
 
 	float startTime;
 	float calculationTime;
@@ -286,9 +288,8 @@ public:
 	string statusMessage;
 	int runningThreads;
 };
-
 ```
-.cpp
+ofApp.cpp
 ```
 #include "ofApp.h"
 #include <thread>
@@ -335,7 +336,7 @@ void ofApp::startCalculation() {
 
 	if (!threads.empty()) {
 		ofLogVerbose() << "Limpiando hilos anteriores...";
-		for (auto & thread : threads) {
+		for (auto& thread : threads) {
 			thread->waitForThread(true);
 			delete thread;
 		}
@@ -348,7 +349,7 @@ void ofApp::startCalculation() {
 		int startY = i * rowsPerThread;
 		int endY = (i == numThreads - 1) ? imgHeight : (i + 1) * rowsPerThread; // Asegura que el último hilo llegue hasta el final
 
-		MandelbrotThread * newThread = new MandelbrotThread(startY, endY, imgWidth, imgHeight, maxIterations, pixels, juliaK);
+		MandelbrotThread* newThread = new MandelbrotThread(startY, endY, imgWidth, imgHeight, maxIterations, pixels, juliaK);
 		threads.push_back(newThread);
 		runningThreads++;
 		threads.back()->startThread(); // Inicia la ejecución de threadedFunction
@@ -365,13 +366,14 @@ void ofApp::update() {
 
 	bool allThreadsFinished = true;
 	if (!threads.empty()) { // Solo comprobar si hay hilos
-		for (const auto & thread : threads) {
+		for (const auto& thread : threads) {
 			if (thread->isThreadRunning()) {
 				allThreadsFinished = false;
 				break; // Si uno sigue corriendo, no necesitamos comprobar los demás
 			}
 		}
-	} else {
+	}
+	else {
 		// Si no hay hilos en el vector, definitivamente no están corriendo
 		allThreadsFinished = true;
 	}
@@ -414,7 +416,7 @@ void ofApp::draw() {
 //--------------------------------------------------------------
 void ofApp::exit() {
 	ofLogNotice() << "Saliendo, esperando a los hilos...";
-	for (auto & thread : threads) {
+	for (auto& thread : threads) {
 		thread->waitForThread(true); // Espera bloqueante hasta que el hilo termine
 		delete thread; // Liberar memoria
 	}
@@ -435,12 +437,69 @@ void ofApp::keyPressed(int key) {
 }
 
 void ofApp::mouseDragged(int x, int y, int button) {
-	if (maxIterations += 1) {
 
-		startCalculation();
-		
-	}
-
+	startCalculation();
 }
+```
+- 🐡 **Muestra cómo mapeaste la posición del mouse a la constante k.**
+```
+MandelbrotThread(int startY, int endY, int width, int height, int maxIter, ofPixels& pixelsRef, glm::vec2 juliaK)
+	: startRow(startY)
+	, endRow(endY)
+	, imgWidth(width)
+	, imgHeight(height)
+	, maxIterations(maxIter)
+	, pixels(pixelsRef)
+	, vecK(juliaK) {
+}
+```
+```
+int calculateMandelbrotPixel(int x, int y) {
+	//float cx = ofMap(x, 0, imgWidth, -2.0, 1.0);
+	//float cy = ofMap(y, 0, imgHeight, -1.5, 1.5);
 
+	float zx = ofMap(x, 0, imgWidth, -2.0, 1.0);
+	float zy = ofMap(y, 0, imgHeight, -1.5, 1.5);
+	int iterations = 0;
+	while (zx * zx + zy * zy < 4.0 && iterations < maxIterations) {
+		float tempX = zx * zx - zy * zy + vecK.x;
+		zy = 2.0 * zx * zy + vecK.y;
+		zx = tempX;
+		iterations++;
+```
+>
+> Para ello creamos el vector JuliaK en el consttructor con sus variables vecK, y ya en la funcion de calcular el pixel (olvide cambiar el nombre de mandelbrot a julia) reemplace las c que habian por veck.x, veck.y
+
+- 🐡 **Describe brevemente cómo reutilizaste la estructura de hilos de la versión Mandelbrot. ¿Tuviste que cambiar mucho esa parte?**
 ````
+MandelbrotThread* newThread = new MandelbrotThread(startY, endY, imgWidth, imgHeight, maxIterations, pixels, juliaK);
+threads.push_back(newThread);
+runningThreads++;
+threads.back()->startThread(); // Inicia la ejecución de threadedFunction
+ofLogVerbose() << "Lanzado hilo " << i << " para filas " << startY << "-" << endY;
+````
+>
+> No en realidad, solamente habia que añadir el nuevo vector, JuliaK
+
+- 🐡 **¿Cómo te aseguraste de que la imagen se recalculara cuando el mouse se movía?**
+````
+void ofApp::mouseDragged(int x, int y, int button) {
+
+	startCalculation();
+}
+````
+>
+> La parte del codigo encargada del mouse es esta. Es una funcion simple que llama al calculo constantemente. Crei que iba a tener que ponerle mas cosas, pero funciono asi. MiYa en pantalla, mientaras tienes presionado el espacio, la posicion se actualiza con el mouse
+
+- 🐡 **Incluye al menos dos capturas de pantalla que muestren diferentes fractales de Julia generados al mover el mouse en tu aplicación.**
+>
+<img width="1029" height="771" alt="Captura de pantalla 2025-10-28 222550" src="https://github.com/user-attachments/assets/31ce6b42-a5d9-4176-bd63-103a50edffef" />
+<img width="1029" height="771" alt="Captura de pantalla 2025-10-28 222619" src="https://github.com/user-attachments/assets/3c7537aa-a46e-4f3b-bb1f-72c53f0aae7a" />
+<img width="1027" height="766" alt="Captura de pantalla 2025-10-28 222608" src="https://github.com/user-attachments/assets/75595c40-1a2e-43b4-bbd5-40ed4494efb1" />
+
+
+- 🐡 **¿Encontraste algún desafío particular al implementar la interacción o modificar el cálculo?**
+>
+> En realidad el trabajo era una bobada increible. Simplemente no estabamos seguras de por donde empezar ni como segurarnos de que todo estuviera conectado. Eso ignorando de que se me olvido como leer y comparar AJAJAJ
+>
+> Pero una vez medio entendiamos como iba la cosa, se logro... solo habian quedado una pendejadita de errores de ortografía por ahi sueltos
