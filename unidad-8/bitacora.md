@@ -515,21 +515,31 @@ void ofApp::mouseDragged(int x, int y, int button) {
 - 🐡 **DEFENSA**
 
 ACTIVIDAD 01
+
 El estudiante ejecuta los codigos base y entiende el concepto base de un hilo y la importancia de sus usos para la distribucion de tareas
+
 [evidencia actividad 1](#evidencia1)
 
 ACTIVIDAD 02
+
 El estudiante analiza a profundidad la condicion de carrera y sus caracteristicas
-[evidencia actividad 1](#evidencia2)
+
+[evidencia actividad 2](#evidencia2)
 
 ACTIVIDAD 03
+
 El estudiante analiza las ecuaciones de mandelbrot y experimenta con el codigo para modificar su previsualización
-[evidencia actividad 1](#evidencia3)
+
+[evidencia actividad 3](#evidencia3)
 
 ACTIVIDAD 04
+
 El estudiante estudia los comportamientos de los boids y flocks
-[evidencia actividad 1](#evidencia4)
+
+[evidencia actividad 4](#evidencia4)
 
 ACTIVIDAD 05
+
 El estudiante modifica las ecuaciones de mandelbort para convertirlas en julia y que se acualice con la posicion del mouse
-[evidencia actividad 1](#evidencia5)
+
+[evidencia actividad 5](#evidencia5)
